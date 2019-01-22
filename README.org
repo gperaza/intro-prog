@@ -17,17 +17,17 @@ sets.
 2. You need to install the compiler and git to upload the solutions to the
    problem sets to GitHub. Run the following code in a terminal of your Linux
    OS:
-#+begin_src sh
-sudo apt update
-sudo apt install gcc git
-#+end_src
+   #+begin_src sh
+   sudo apt update
+   sudo apt install gcc git
+   #+end_src
 
 3. You'll also need the CS50 library. If on Xubuntu, install it by running the
    following in the terminal.
-#+begin_src sh
-curl -s https://packagecloud.io/install/repositories/cs50/repo/script.deb.sh | sudo bash
-sudo apt-get install libcs50
-#+end_src
+   #+begin_src sh
+   curl -s https://packagecloud.io/install/repositories/cs50/repo/script.deb.sh | sudo bash
+   sudo apt-get install libcs50
+   #+end_src
    If not on Xubuntu, follow the instructions at
    https://github.com/cs50/libcs50.
 
