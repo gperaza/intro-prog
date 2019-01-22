@@ -1,0 +1,41 @@
+This repository contains notes for the Introduction to Programming class at UPY.
+The content is heavily based on the CS50 course by David Malan at Stanford.
+
+* Requirements
+
+There are some requirements to be able to follow the notes and do the problem
+sets.
+
+1. You need Linux, so please either install a distribution on your machine or
+   setup a virtual machine from within Windows. Instructions to setup a virtual
+   machine can be found here:
+   https://blog.storagecraft.com/the-dead-simple-guide-to-installing-a-linux-virtual-machine-on-windows/
+
+   I recommend Xubuntu, as it is able to run with fewer resources than other
+   distributions. Download it at https://xubuntu.org.
+
+2. You need to install the compiler and git to upload the solutions to the
+   problem sets to GitHub. Run the following code in a terminal of your Linux
+   OS:
+#+begin_src sh
+sudo apt update
+sudo apt install gcc git
+#+end_src
+
+3. You'll also need the CS50 library. If on Xubuntu, install it by running the
+   following in the terminal.
+#+begin_src sh
+curl -s https://packagecloud.io/install/repositories/cs50/repo/script.deb.sh | sudo bash
+sudo apt-get install libcs50
+#+end_src
+   If not on Xubuntu, follow the instructions at
+   https://github.com/cs50/libcs50.
+
+4. You need a GitHub account. If you don't have one, create one at
+   https://www.github.com.
+
+* Resources
+- To submit the solutions to the problem sets, you are required to push your code
+  onto GitHub. To learn how to work with GitHub repositories, please follow the
+  tutorial at:
+
