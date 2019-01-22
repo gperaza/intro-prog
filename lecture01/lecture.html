@@ -1,0 +1,994 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-01-22 mar 11:36 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Class notes: C class 1</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Gonzalo G. Peraza Mues" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Class notes: C class 1</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org8a4ceed">1. Hello world</a></li>
+<li><a href="#orgb17d191">2. Variables</a></li>
+<li><a href="#org2f157ce">3. Conditionals</a>
+<ul>
+<li><a href="#org95c50f2">3.1. Comparison operators in C</a></li>
+</ul>
+</li>
+<li><a href="#org9a0d29c">4. Loops</a></li>
+<li><a href="#org6c861e3">5. Asking for input</a></li>
+<li><a href="#orge70e96a">6. hello.c</a></li>
+<li><a href="#org411c586">7. Compiling</a></li>
+<li><a href="#orgf914eaa">8. getting user input</a></li>
+<li><a href="#orgf586f1b">9. Debugging</a></li>
+<li><a href="#orgbb07524">10. int.c</a></li>
+<li><a href="#orgfa88912">11. float.c</a></li>
+<li><a href="#orgcc62cfa">12. ints.c</a></li>
+<li><a href="#orgdf2b452">13. floats.c</a></li>
+<li><a href="#orgf74b039">14. doubles.c</a></li>
+<li><a href="#org0ddaf23">15. parity.c</a></li>
+<li><a href="#org61959b1">16. conditions.c</a></li>
+<li><a href="#orgc189a90">17. answer.c</a>
+<ul>
+<li><a href="#orgd8ca50b">17.1. Logical operators in C</a></li>
+</ul>
+</li>
+<li><a href="#org7ed8948">18. Building functions</a></li>
+<li><a href="#orgc002591">19. positive.c</a></li>
+<li><a href="#org968d94a">20. Overflow</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org8a4ceed" class="outline-2">
+<h2 id="org8a4ceed"><span class="section-number-2">1</span> Hello world</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Scratch equivalent:
+<img src="figs/when_green_flag.png" alt="when_green_flag.png" />
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"hello, world\n"</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+Let's start by decomposing the elements of the function call:
+</p>
+<div class="org-src-container">
+<pre class="src src-C">printf<span style="color: #707183;">(</span><span style="color: #008000;">"hello, world\n"</span><span style="color: #707183;">)</span>;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgb17d191" class="outline-2">
+<h2 id="orgb17d191"><span class="section-number-2">2</span> Variables</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+To create a variable in C (equal means assignment):
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">counter</span> = 0;
+</pre>
+</div>
+
+<p>
+Scratch equivalent:
+<img src="figs/set_counter_to_0.png" alt="set_counter_to_0.png" />
+</p>
+
+<p>
+To increment a number by 1:
+</p>
+<div class="org-src-container">
+<pre class="src src-C">counter = counter + 1;  <span style="color: #8D8D84;">//</span><span style="color: #8D8D84; font-style: italic;">note that counter must exist for this to work</span>
+
+<span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">Alternative 1 </span><span style="color: #8D8D84;">*/</span>
+counter += 1;
+
+<span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">Alernative 2 </span><span style="color: #8D8D84;">*/</span>
+counter++;
+</pre>
+</div>
+
+<p>
+Scratch equivalent:
+<img src="figs/change_counter_by_1.png" alt="change_counter_by_1.png" />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2f157ce" class="outline-2">
+<h2 id="org2f157ce"><span class="section-number-2">3</span> Conditionals</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+A simple <code>if</code> conditional:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #0000FF;">if</span> <span style="color: #707183;">(</span>x &lt; y<span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x is less than y\n"</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+Scratch equivalent:
+<img src="figs/if_x_y.png" alt="if_x_y.png" />
+</p>
+
+<p>
+An <code>if-else</code> conditional (indentation is just a matter of style):
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #0000FF;">if</span> <span style="color: #707183;">(</span>x &lt; y<span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x is less than y\n"</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+<span style="color: #0000FF;">else</span>
+<span style="color: #707183;">{</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x is not less than y\n"</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+Scratch equivalent:
+<img src="figs/if_else.png" alt="if_else.png" />
+</p>
+
+<p>
+An <code>else-if</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #0000FF;">if</span> <span style="color: #707183;">(</span>x &lt; y<span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x is less than y\n"</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+<span style="color: #0000FF;">else</span> <span style="color: #0000FF;">if</span> <span style="color: #707183;">(</span>x &gt; y<span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x is greater than y\n"</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+<span style="color: #0000FF;">else</span> <span style="color: #0000FF;">if</span> <span style="color: #707183;">(</span>x == y<span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x is equal to y\n"</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+Scratch equivalent:
+<img src="figs/if_else_if.png" alt="if_else_if.png" />
+</p>
+</div>
+
+<div id="outline-container-org95c50f2" class="outline-3">
+<h3 id="org95c50f2"><span class="section-number-3">3.1</span> Comparison operators in C</h3>
+<div class="outline-text-3" id="text-3-1">
+<ul class="org-ul">
+<li>==: equal to</li>
+<li>!=: not equal to</li>
+<li>&gt;: greater than</li>
+<li>&lt;: less than</li>
+<li>&gt;=: greater or equal to</li>
+<li>&lt;=: less or equal to</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org9a0d29c" class="outline-2">
+<h2 id="org9a0d29c"><span class="section-number-2">4</span> Loops</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Infinite loops:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #0000FF;">while</span> <span style="color: #707183;">(</span><span style="color: #D0372D;">true</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"hello, world\n"</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+Scratch alternative: <img src="figs/forever.png" alt="forever.png" />
+</p>
+
+<p>
+For loops:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #0000FF;">for</span> <span style="color: #707183;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 0; i &lt; 50; i++<span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"hello, world\n"</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+Scratch alternative: <img src="figs/repeat.png" alt="repeat.png" />
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6c861e3" class="outline-2">
+<h2 id="org6c861e3"><span class="section-number-2">5</span> Asking for input</h2>
+<div class="outline-text-2" id="text-5">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">answer</span> = get_string<span style="color: #707183;">(</span><span style="color: #008000;">"What's your name?\n"</span><span style="color: #707183;">)</span>;
+<span style="color: #8D8D84;">/* </span><span style="color: #8D8D84; font-style: italic;">Note: string is not an actual data type, it is defined in cs50.h to ease the</span>
+<span style="color: #8D8D84; font-style: italic;">   introduction to c. (as well as the get_string function) </span><span style="color: #8D8D84;">*/</span>
+
+printf<span style="color: #707183;">(</span><span style="color: #008000;">"hello, %s\n"</span>, answer<span style="color: #707183;">)</span>;
+</pre>
+</div>
+
+<p>
+Scratch alternative: <img src="figs/ask_say_join.png" alt="ask_say_join.png" />
+</p>
+</div>
+</div>
+
+<div id="outline-container-orge70e96a" class="outline-2">
+<h2 id="orge70e96a"><span class="section-number-2">6</span> hello.c</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+We will now create our first program, create a new directory and type the
+following in simple text file named <code>hello.c</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"hello, world\n"</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org411c586" class="outline-2">
+<h2 id="org411c586"><span class="section-number-2">7</span> Compiling</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+To actually run the program, you must compile it to transform it to machine
+language (binary). In Linux, run the following:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">gcc hello.c
+</pre>
+</div>
+
+<p>
+This will create a file called ~a.out~m which is your binary. To run it, write
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">./a.out
+</pre>
+</div>
+
+<p>
+In the code above, <code>gcc</code> is the GNU C compiler. The compiler transforms the code
+in your text file to a binary executable file that the computer understands
+(machine code). The compiler is a program that makes programs.
+</p>
+
+<p>
+But, <code>a.out</code> is a really bad name, to choose a name for our program we can write
+instead
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">gcc -o hello hello.c
+</pre>
+</div>
+<p>
+where <code>-o hello</code> is what is called a <i>command line argument</i>, which are optional
+configuration parameters we can pass to command line programs.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf914eaa" class="outline-2">
+<h2 id="orgf914eaa"><span class="section-number-2">8</span> getting user input</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+We can modify our program to obtain some input:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">name</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"What is your name?\n"</span><span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"hello, name\n"</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf586f1b" class="outline-2">
+<h2 id="orgf586f1b"><span class="section-number-2">9</span> Debugging</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+If we try to run this, we would get some errors, the first one being that string
+is not a recognized data type. Lets fix that (this is called <b>debugging</b>):
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">name</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"What is your name?\n"</span><span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"hello, name\n"</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+Files written after the <code>#include</code> keyword, are called libraries (more
+specifically the header file of that particular library). A library is a
+collection of code that we can reuse in our own programs. We are telling the
+compiler to include the contents of those files in our program. The <code>cs50.h</code>
+file defined the type string and the function <code>get_string</code>, among other
+things. The file <code>stdio.h</code> is part of the C Standard Library, and includes the
+definition of the <code>printf</code> function.
+</p>
+
+<p>
+To compile it, now we need to specifically tell the compiler to use the <code>cs50</code>
+library:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">gcc hello.c -lcs50 -o hello
+</pre>
+</div>
+
+<p>
+And it works, but it still doesn't print the name, lets try to make the compiler
+a little more helpful and make it print all warnings:
+</p>
+<div class="org-src-container">
+<pre class="src src-sh">gcc hello.c -Wall -lcs50 -o hello
+</pre>
+</div>
+
+<p>
+Now we have an Warning referring to an unused variable, lets fix that using the
+string place holder <code>%s</code> in the <code>printf</code> function
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">name</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"What is your name?\n"</span><span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"hello, %s\n"</span>, name<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgbb07524" class="outline-2">
+<h2 id="orgbb07524"><span class="section-number-2">10</span> int.c</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+Make a file <code>int.c</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = get_int<span style="color: #7388D6;">(</span><span style="color: #008000;">"Integer: "</span><span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"hello, %i\n"</span>, i<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgfa88912" class="outline-2">
+<h2 id="orgfa88912"><span class="section-number-2">11</span> float.c</h2>
+<div class="outline-text-2" id="text-11">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">float</span> <span style="color: #BA36A5;">f</span> = get_float<span style="color: #7388D6;">(</span><span style="color: #008000;">"Float: "</span><span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"hello, %f\n"</span>, f<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgcc62cfa" class="outline-2">
+<h2 id="orgcc62cfa"><span class="section-number-2">12</span> ints.c</h2>
+<div class="outline-text-2" id="text-12">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt user for x</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">x</span> = get_int<span style="color: #7388D6;">(</span><span style="color: #008000;">"x: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt user for y</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">y</span> = get_int<span style="color: #7388D6;">(</span><span style="color: #008000;">"y: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Perform arithmetic</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x + y = %i\n"</span>, x + y<span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x - y = %i\n"</span>, x - y<span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x * y = %i\n"</span>, x * y<span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x / y = %i\n"</span>, x / y<span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x mod y = %i\n"</span>, x % y<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgdf2b452" class="outline-2">
+<h2 id="orgdf2b452"><span class="section-number-2">13</span> floats.c</h2>
+<div class="outline-text-2" id="text-13">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt user for x</span>
+    <span style="color: #6434A3;">float</span> <span style="color: #BA36A5;">x</span> = get_float<span style="color: #7388D6;">(</span><span style="color: #008000;">"x: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt user for y</span>
+    <span style="color: #6434A3;">float</span> <span style="color: #BA36A5;">y</span> = get_float<span style="color: #7388D6;">(</span><span style="color: #008000;">"y: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Perform division</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x / y = %.50f\n"</span>, x / y<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+What's wrong here if we input x=2, y=10? We run into rounding errors. Rounding
+errors come from the fact that memory is not infinite, with finite memory we
+cannot represent all real number, just a subset of them, so some numbers are not
+available to the computer, as is the case of 2/10. What ends up happening is
+that we are using the closest available number, so to speak. But this can lead
+to errors if we perform a large number of operations.
+</p>
+
+<p>
+And these imprecisions can be problematic in finance, rockets, or scientific
+applications. But we can get around this problem, by specifying the number of
+decimal places we will be precise to, and allocate the right number of bits to
+represent that many decimal places.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgf74b039" class="outline-2">
+<h2 id="orgf74b039"><span class="section-number-2">14</span> doubles.c</h2>
+<div class="outline-text-2" id="text-14">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt user for x</span>
+    <span style="color: #6434A3;">double</span> <span style="color: #BA36A5;">x</span> = get_double<span style="color: #7388D6;">(</span><span style="color: #008000;">"x: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt user for y</span>
+    <span style="color: #6434A3;">double</span> <span style="color: #BA36A5;">y</span> = get_double<span style="color: #7388D6;">(</span><span style="color: #008000;">"y: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Perform division</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x / y = %.50f\n"</span>, x / y<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+A float in C, on most computers, uses 4 bytes, or 32 bits. Another type, called
+a double, uses twice as many bits, or 8 bytes.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org0ddaf23" class="outline-2">
+<h2 id="org0ddaf23"><span class="section-number-2">15</span> parity.c</h2>
+<div class="outline-text-2" id="text-15">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt user for integer</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">n</span> = get_int<span style="color: #7388D6;">(</span><span style="color: #008000;">"n: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Check parity of integer</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>n % 2 == 0<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"even\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">else</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"odd\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org61959b1" class="outline-2">
+<h2 id="org61959b1"><span class="section-number-2">16</span> conditions.c</h2>
+<div class="outline-text-2" id="text-16">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt user for x</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">x</span> = get_int<span style="color: #7388D6;">(</span><span style="color: #008000;">"x: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt user for y</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">y</span> = get_int<span style="color: #7388D6;">(</span><span style="color: #008000;">"y: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Compare x and y</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>x &lt; y<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"x is less than y\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">else</span> <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>x &gt; y<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"x is greater than y\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">else</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"x is equal to y\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc189a90" class="outline-2">
+<h2 id="orgc189a90"><span class="section-number-2">17</span> answer.c</h2>
+<div class="outline-text-2" id="text-17">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt user for answer</span>
+    <span style="color: #6434A3;">char</span> <span style="color: #BA36A5;">c</span> = get_char<span style="color: #7388D6;">(</span><span style="color: #008000;">"Answer: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Check answer</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>c == <span style="color: #008000;">'Y'</span> || c == <span style="color: #008000;">'y'</span><span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"yes\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">else</span> <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>c == <span style="color: #008000;">'N'</span> || c == <span style="color: #008000;">'n'</span><span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"no\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgd8ca50b" class="outline-3">
+<h3 id="orgd8ca50b"><span class="section-number-3">17.1</span> Logical operators in C</h3>
+<div class="outline-text-3" id="text-17-1">
+<ul class="org-ul">
+<li>!: NOT</li>
+<li>&amp;&amp;: AND</li>
+<li>||: OR</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org7ed8948" class="outline-2">
+<h2 id="org7ed8948"><span class="section-number-2">18</span> Building functions</h2>
+<div class="outline-text-2" id="text-18">
+<p>
+Lets print cough 3 times:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 0; i &lt; 3; i++<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"cough\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+Create a function for coughing:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">cough</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>; <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">let the compiler know cough exists</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 0; i &lt; 3; i++<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        cough<span style="color: #909183;">()</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+
+<span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Cough once</span>
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">cough</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"cough\n"</span><span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+Abstracting further:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">cough</span><span style="color: #707183;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">n</span><span style="color: #707183;">)</span>;
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    cough<span style="color: #7388D6;">(</span>3<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+
+<span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Cough some number of times</span>
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">cough</span><span style="color: #707183;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">n</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 0; i &lt; n; i++<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"cough\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgc002591" class="outline-2">
+<h2 id="orgc002591"><span class="section-number-2">19</span> positive.c</h2>
+<div class="outline-text-2" id="text-19">
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">get_positive_int</span><span style="color: #707183;">(</span><span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">prompt</span><span style="color: #707183;">)</span>;
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = get_positive_int<span style="color: #7388D6;">(</span><span style="color: #008000;">"Positive integer: "</span><span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"%i\n"</span>, i<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+
+<span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt user for positive integer</span>
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">get_positive_int</span><span style="color: #707183;">(</span><span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">prompt</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">n</span>; <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">this variable is local to this fucntion</span>
+    <span style="color: #0000FF;">do</span>
+    <span style="color: #7388D6;">{</span>
+        n = get_int<span style="color: #909183;">(</span><span style="color: #008000;">"%s"</span>, prompt<span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">while</span> <span style="color: #7388D6;">(</span>n &lt; 1<span style="color: #7388D6;">)</span>;
+    <span style="color: #0000FF;">return</span> n;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org968d94a" class="outline-2">
+<h2 id="org968d94a"><span class="section-number-2">20</span> Overflow</h2>
+<div class="outline-text-2" id="text-20">
+<p>
+Again, memory is finite. There exists a maximum integer value in can represent,
+going over it causes problems. For example, if I only have room for three
+digits, adding 1 to 999 leads to 000 because I have not space to store the
+leading 1. For 32 bits int there is max value ~ 4 billion.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">unistd.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Iteratively double i</span>
+    <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 1; ; i *= 2<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"%i\n"</span>, i<span style="color: #909183;">)</span>;
+        sleep<span style="color: #909183;">(</span>1<span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Gonzalo G. Peraza Mues</p>
+<p class="date">Created: 2019-01-22 mar 11:36</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
