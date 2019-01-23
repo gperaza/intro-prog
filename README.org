@@ -14,6 +14,13 @@ sets.
    I recommend Xubuntu, as it is able to run with fewer resources than other
    distributions. Download it at https://xubuntu.org.
 
+   Another alternative is the Windows Subsystem for Linux (WSL), which give you
+   access to a Linux terminal in Windows. To install the WSL follow this
+   instructions:
+   https://docs.microsoft.com/en-us/windows/wsl/install-win10. Remember that if
+   using WSL you need to change to your Windows working directory every time you
+   start up WSL.
+   
 2. You need to install the compiler and git to upload the solutions to the
    problem sets to GitHub. Run the following code in a terminal of your Linux
    OS:
@@ -25,6 +32,7 @@ sets.
 3. You'll also need the CS50 library. If on Xubuntu, install it by running the
    following in the terminal.
    #+begin_src sh
+   sudo apt install curl
    curl -s https://packagecloud.io/install/repositories/cs50/repo/script.deb.sh | sudo bash
    sudo apt-get install libcs50
    #+end_src
@@ -36,16 +44,20 @@ sets.
 
 * Resources
 - We will use the command line heavily throughout the course, a tutorial can be
-  found at: Also, cheat-sheet with the most common commands can be found here:
+  found at: 
+
+  Also, cheat-sheet with the most common commands can be found here:
+  http://cheatsheetworld.com/programming/unix-linux-cheat-sheet/
 
 - To submit the solutions to the problem sets, you are required to push your code
   onto GitHub. To learn how to work with GitHub repositories, please follow the
   tutorial at:
   
   In summary, every time you want to submit your work, you'll need to perform
-  three actions on the command line from within the folder's repository:
+  two actions on the command line from within the folder's repository:
   #+begin_src sh
-  git add -A
-  git commit -m "<useful message here>"
+  git commit -a -m "<useful message here>"
   git push
   #+end_src
+
+- The CS50 C reference can be found here: https://reference.cs50.net/
