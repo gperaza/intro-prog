@@ -1,0 +1,64 @@
+The following commands can be used in any UNIX based operating system. This
+includes Linux and MacOS, among others.
+
+* ~ls~: short for list.
+Lists all files and folders in your current directory.
+
+* ~cd <directory>~: short for change directory
+Changes your current directory to ~<directory>~, which you specify , in your
+workspace or on your operating system.
+
+The shorthand for the current directory is just a dot: ~.~. So, ~cd .~ changes
+your working directory to your current directory, which leaves right in the same
+place.
+
+The short name for the parent directory of the current directory is ~..~. So ~cd
+..~ takes you to the parent directory.
+
+If no ~<directory>~ is given, ~cd~ takes you to your ~home~ directory.
+
+* ~pwd~: print working directory
+Prints the path to your current directory.
+
+* ~clear~
+Clears the screen. Alternatively, you can press ~ctrl + l~.
+
+* ~mkdir <directory>~: short for make directory
+Creates a new sub-directory called ~<directory>~ located in the current
+directory.
+
+* ~cp <source> <destination>~: short for copy
+Allows to create a duplicate of the file you specify as ~<source>~, which it
+will save in ~<destination>~.
+
+If passed the argument ~r~, as ~cp -r <source> <destination>~, it allows you to
+copy entire directories. The "-r" stands for /recursive/, and tells ~cp~ to dive
+down into the directory and copy everything inside of it (including any
+sub-directories it may contain).
+
+* ~rm <file>~: short for remove
+Will delete ~<file>~. Use at your own peril! There is no undo.
+
+To delete entire directories you need to use the ~-r~ flag, ~rm -r
+<directory>~. It will ask for confirmation to delete the directory. To skip the
+confirmation, pass the ~-f~ flag, ~rm -rf <directory>~.
+
+* ~mv <source> <destination>~: short for move
+Will allow you to effectively rename a file, moving it from ~<source>~ to
+~<destination>~.
+
+* touch
+
+* chmod
+
+* rmdir
+
+* sudo
+
+* ln
+
+* man
+
+* diff
+
+* telnet
