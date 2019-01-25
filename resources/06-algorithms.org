@@ -1,0 +1,18 @@
+* Selection sort O(n^{2}) Ω(n^{2})
+Find the *smallest* unsorted element in an array and swap it with the *first*
+unsorted element in that array.
+* Bubble sort  O(n^{2}) Ω(n)
+Swap *adjacent pairs* of elements if they are out of order, effectively
+"bubbling" larger elements to the right and smaller to the left.
+* Insertion sort O(n^{2}) Ω(n)
+Proceed once through the array from left-to-right, *shifting* elements as
+necessary to insert each element into its correct place.
+* Merge sort O(n log n) Ω(n log n)
+*Split* the full array into subarrays, then *merge* those subarrays back
+ together in the correct order.
+* Linear search O(n) Ω(1)
+*Iterate* across the array from left-to-right, trying to find the target
+ element.
+* Binary search O(log n) Ω(1)
+Given a _sorted_ array, *divide and conquer* by systematically eliminating half
+of the remaining elements in the search for the target element.
