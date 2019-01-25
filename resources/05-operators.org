@@ -1,0 +1,77 @@
+* Arithmetic operators
+In C, we can add (~+~), subtract (~-~), multiply (~*~) and divide (~/~) numbers,
+as expected.
+#+begin_src C
+int x = y + 1;
+x = x * 5;
+#+end_src
+
+We also have the modulus operator, (~%~) which us the remainder when the number
+on the left of the operator is divided by the number on the right.
+#+begin_src C
+int m = 13 % 4; // m is now 1
+#+end_src
+
+C also provides a shorthand way to apply an arithmetic operator to a single
+variable.
+#+begin_src C
+x = x * 5;
+x *= 5;
+#+end_src
+
+This trick also works with all five basic arithmetic operators.
+
+C provides a further shorthand for incrementing or decrementing a variable by 1:
+#+begin_src C
+x++;
+x--;
+#+end_src
+
+* Boolean expressions
+Boolean expressions are used in C for comparing values.
+
+All Boolean expressions in C evaluate to one of two possible values: ~true~ or
+~false~.
+
+We can use the result of evaluating a Boolean expression in other programming
+constructs such as deciding which branch of a /conditional/ to take, or
+determining whether a /loop/ should continue or run.
+
+Sometimes when working with Boolean expressions we will use variables of type
+~bool~, but we don't have to. In C, /every/ nonzero value is equivalent to
+~true~, and zero is ~false~.
+
+** Logical operators
+
+Logical AND (~&&~) is true if and only if both operands are true, otherwise
+false.
+|x|y|(x && y)|
+|true|true|true|
+|true|false|false|
+|false|true|false|
+|false|false|false|
+
+Logical OR (~||~) is true if and only if at least one operand is true, otherwise
+false.
+|x|y|(x && y)|
+|true|true|true|
+|true|false|true |
+|false|true|true |
+|false|false|false|
+
+Logical NOT (~!~) inverts the value of the operand.
+|x|!x |
+|true|false |
+|true|true|
+
+** Relational operators
+
+These behave as you expect them to, and appear syntactically similar to how you
+may recall them from elementary arithmetic.
+
+- Less than (~x < y~)
+- Less than or equal than (~x <= y~)
+- Greater than (~x > y~)
+- Greater than or equal to (~x >= y~)
+- Equality (~==~)
+- Inequality (~!=~)
