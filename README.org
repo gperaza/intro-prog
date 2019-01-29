@@ -64,3 +64,5 @@ private copy of the assignment repository for you to work it.
   #+end_src
 
 - The CS50 C reference can be found here: https://reference.cs50.net/
+
+- The CS50 C style guide can be found here: https://cs50.readthedocs.io/style/c/

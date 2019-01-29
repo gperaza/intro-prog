@@ -1,9 +1,25 @@
+#+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
+
 * Selection sort O(n^{2}) Ω(n^{2})
 Find the *smallest* unsorted element in an array and swap it with the *first*
 unsorted element in that array.
 * Bubble sort  O(n^{2}) Ω(n)
-Swap *adjacent pairs* of elements if they are out of order, effectively
+*Summary:* Swap *adjacent pairs* of elements if they are out of order, effectively
 "bubbling" larger elements to the right and smaller to the left.
+
+In bubble sort, the idea of the algorithm is to move higher valued elements
+generally towards the right and lower valued elements generally towards the
+left.
+
+Pseudo-code:
+#+begin_src
+Set swap counter no a non-zero value
+Repeat until the swap counter is 0:
+   Reset swap counter to 0.
+   Look at each adjacent pair
+       If two adjacent elements are not in order, swap them and add one to the swap counter.
+#+end_src
+
 * Insertion sort O(n^{2}) Ω(n)
 Proceed once through the array from left-to-right, *shifting* elements as
 necessary to insert each element into its correct place.
@@ -14,5 +30,29 @@ necessary to insert each element into its correct place.
 *Iterate* across the array from left-to-right, trying to find the target
  element.
 * Binary search O(log n) Ω(1)
-Given a _sorted_ array, *divide and conquer* by systematically eliminating half
-of the remaining elements in the search for the target element.
+Summary: Given a _sorted_ array, *divide and conquer* by systematically
+eliminating half of the remaining elements in the search for the target element.
+
+In binary search, the idea of the algorithm is to dived and conquer, reducing
+the search area by half each time, trying to find a target number. In order to
+leverage this power however, our arrays must fist be sorted, else we cannot make
+assumptions about the array's content.
+
+Pseudo-code:
+#+begin_src
+Repeat until the (sub)array is of size 0:
+    Calculate the middle point of the current (sub)array.
+    If the target is at the midddle, stop.
+    Otherwise, if the targer is less than what's at the middle, repeat, changing the end point to be just to the left of the middle.
+    Otherwise, if the target is greater than what's at the middle, repeat, changing the starting point to be just to the right of the middle.
+#+end_src
+
+[[file:figs/1280px-Binary_Search_Depiction.png]]
+
+*Worst case scenario:* We have to divide a list of /n/ elements in half
+ repeatedly to find the target element, either because the target element will
+ be found at the end of the last division or doesn't exist in the array at
+ all. *O(log n)*
+
+*Best case scenario:* The target element is at the midpoint of the full array,
+ and so we can stop looking immediately after we start. *Ω(1)*
