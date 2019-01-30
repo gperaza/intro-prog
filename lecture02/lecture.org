@@ -159,7 +159,7 @@ In memory, we can store variables one after another, back-to-back. And in C, a
 list of variables stored, one after another in a contiguous chunk of memory, is
 called an array.
 
-#+begin_src C
+#+begin_src C :tangle score0.c
 #include <cs50.h>
 #include <stdio.h>
 
@@ -167,8 +167,11 @@ int main(void)
 {
     // Get scores from user
     int score1 = get_int("Score 1: ");
+    // score 1 is now stored in 4 continuous bytes in memory
     int score2 = get_int("Score 2: ");
     int score3 = get_int("Score 3: ");
+    // so are socore 2 and 3, but the 4 byte chunks not need be next to each
+    // other
 
     // Generate first bar
     printf("Score 1: ");
@@ -195,11 +198,12 @@ int main(void)
     printf("\n");
 }
 #+end_src
+
 We are using 3 variables for 3 different scores. Our 3 integers, ~score1~,
 ~score2~, and ~score3~ will be stored somewhere in memory.
 
 We can improve the code with a function:
-#+begin_src C
+#+begin_src C :tangle scores1.c
 #include <cs50.h>
 #include <stdio.h>
 
@@ -240,7 +244,7 @@ But we still require to create and assign 3 variables explicitly.
 
 With an array, we can collect our scores in a loop, and access them later in a
 loop, too:
-#+begin_src C
+#+begin_src C :tangle scores2.c
 // Generates a bar chart of three scores using an array
 
 #include <cs50.h>
@@ -283,7 +287,7 @@ that goes from ~0~ to ~2~ (since there are 3 elements).
 
 We repeat the value 3 in a few times, so we can factor that out to a constant,
 or a number we can specify and use globally:
-#+begin_src C
+#+begin_src C :tangle scores3.c
 #include <cs50.h>
 #include <stdio.h>
 
@@ -327,7 +331,7 @@ letters, to indicate that it’s a constant (by convention).
 
 We can have our chart function print the entire chart, not just one bar at a
 time:
-#+begin_src C
+#+begin_src C :tangle scores4.c
 #include <cs50.h>
 #include <math.h>
 #include <stdio.h>
@@ -370,9 +374,8 @@ want to print, we can have the ~chart~ function iterate over ~scores~. In fact,
 have to pass in a ~count~.
 
 * Strings
-Strings are actually just arrays of characters. We can see this with
-~string0.c~:
-#+begin_src C
+Strings are actually just arrays of characters.
+#+begin_src C :tangle string0.c
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>
@@ -388,15 +391,15 @@ int main(void)
 }
 #+end_src
 
-First, we need a new library, string.h, for strlen, which tells us the length of
-a string. Then, we use the same syntax to access elements in arrays, s[i], to
-print each individual character of the string s.
+First, we need a new library, ~string.h~, for ~strlen~, which tells us the
+length of a string. Then, we use the same syntax to access elements in arrays,
+~s[i]~, to print each individual character of the string ~s~.
 
 We can improve the design of our program. ~string0~ was a bit inefficient, since
 we check the length of the string, after each character is printed, in our
 condition. But since the length of the string doesn’t change, we can check the
 length of the string once:
-#+begin_src C
+#+begin_src C :tangle string1.c
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>
@@ -432,7 +435,7 @@ write as ~\0~.
 
 If we wanted to write our own version of strlen, for example, we would need to
 know this:
-#+begin_src C
+#+begin_src C :tangle strlen.c
 #include <cs50.h>
 #include <stdio.h>
 
@@ -447,7 +450,7 @@ int main(void)
     {
         n++;
     }
-    printf("%i\n", n);
+    printf("The length of your name is %i\n", n);
 }
 #+end_src
 
@@ -458,7 +461,7 @@ string, and can print out the value of ~n~.
 
 And, since we know that each character has a numeric, ASCII value, we can even
 print that:
-#+begin_src C
+#+begin_src C :tangle ascii0.c
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>
@@ -483,7 +486,7 @@ interpret the value of ~s[i]~ as an integer.
 
 We can now combine what we’ve seen, to write a program that can capitalize
 letters:
-#+begin_src C
+#+begin_src C :tangle capitalize0.c
 #include <cs50.h>
 #include <stdio.h>
 #include <string.h>
@@ -517,7 +520,7 @@ lowercase letters have a higher value than uppercase letters, and so we can
 subtract that difference to get an uppercase letter from a lowercase letter.)
 
 But there are library functions that we can use, to accomplish the same thing:
-#+begin_src C
+#+begin_src C :tangle capitalize1.c
 #include <cs50.h>
 #include <ctype.h>
 #include <stdio.h>
@@ -550,7 +553,7 @@ We can use a command-line program, ~man~, to read manual information for other
 programs, if it exists. For example, we can run ~man toupper~ to see some
 documentation about that function. Then, we’ll see that ~toupper~ will return
 the character as-is, if it’s not a lowercase letter, and so we can simply have:
-#+begin_src C
+#+begin_src C :tangle capitalize2.c
 for (int i = 0, n = strlen(s); i < n; i++)
 {
     printf("%c", toupper(s[i]));
