@@ -116,7 +116,7 @@ Print statements are useful debugging tools.
 Having a good *style* also helps understanding and debugging code. For example,
 this code is hard to read because I cannot immediately identify which codes
 belongs to the for loop and to the main function:
-#+begin_src C :tangle buggy2.c
+#+begin_src C :tangle buggy3.c
 #include <stdio.h>
 
 int main(void)
