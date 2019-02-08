@@ -621,7 +621,7 @@ int main(int argc, string argv[])
 With ~argv[i]~, we get the current argument from the array of arguments, and
 with ~argv[i][j]~, we get a character from that string.
 
-* Encryption
+* Encryption                                                       :noexport:
 If we wanted to send a message to someone, we might want to encrypt, or somehow
 scramble that message so that it would be hard for others to read. The original
 message is called /plaintext/, and the encrypted message is called /ciphertext/.
@@ -667,4 +667,161 @@ As we write more complex programs, error codes like this will help us determine
 what went wrong, even if it’s not visible or meaningful to the user.
 
 * Sorting
+With arrays, we can solve more interesting problems than before. We can think of
+arrays like lockers, where, behind the doors of each locker, is some value, like
+an integer or character. Indeed, computers can only look at one locker, or value
+at a time.
 
+If we had a list of numbers, and we wanted to find a number in that list, the
+best we could do is look through it, one at a time, or randomly. 
+
+But if we knew the list was sorted, we could look in the middle first, and move
+left or right accordingly.
+
+Consider the following random order:
+#+begin_example
+6 5 1 3 7 8 4 2
+#+end_example
+
+We look at the first two numbers, and swap them so they are in order: 
+#+begin_example
+5 6 1 3 7 8 4 2
+#+end_example
+
+Then we look at the next pair, ~6~ and ~1~, and swap them:
+#+begin_example
+5 1 6 3 7 8 4 2
+#+end_example
+
+We repeat this, until, after our first pass, the largest number ended up
+furthest on the right: 
+#+begin_example
+5 1 6 3 7 4 2 8
+#+end_example
+
+We repeat this, and every time we make a pass, the next-largest number ends up
+next-furthest to the right:
+#+begin_example
+1 5 3 6 4 2 7 8
+#+end_example
+
+Eventually, our list becomes fully sorted. The first time, we compared 7 pairs
+of numbers. The second time, we compared 6 pairs.
+
+Let's shuffle our numbers again:
+#+begin_example
+2 4 8 5 7 1 3 6
+#+end_example
+
+And this time, we look for the smallest number each time, as we go down the
+list, and put that to the far left:
+#+begin_example
+1 4 8 5 7 2 3 6
+1 2 8 5 7 4 3 6
+1 2 3 5 7 4 8 6
+#+end_example
+Each time, we select the smallest number and swap it with the number that’s in
+the furthest left part of the unsorted part of the list.
+
+With this algorithm, we still pass through the list $n - 1$ times, since there
+are $n$ people, and we do have to compare each number with the smallest number
+we've seen thus far.
+
+The first algorithm, *bubble sort*, involved comparing pairs of numbers next to
+each other, until the largest bubbled up to the right. We might write that in
+pseudocode as:
+#+begin_src :tangle bubble.psudocode
+repeat until no swaps
+    for i from 0 to n-2
+        if i'th and i+1'th elements out of order
+            swap them
+#+end_src
+
+The second algorithm, *selection sort*, might be as follows:
+#+begin_src :tangle selection.pseudocode
+for i from 0 to n-1
+    find smallest element between i'th and n-1'th
+    swap smallest with i'th element
+#+end_src
+
+For the first pass, we needed to make $n - 1$ comparisons, to find the smallest
+number. Then, in each of the following passes, we made one less comparison,
+since we had already moved some numbers to the left:
+#+begin_example
+(n – 1) + (n – 2) + ... + 1
+n(n – 1)/2
+(n^2 – n)/2
+n^2 / 2 – n/2
+#+end_example
+Each line simplifies to the next, and eventually, we get $n^2 / 2 - n/2$ as the
+number of comparisons we need to make. In computer science, we can use $O$, big
+$O$ notation, to simplify that further, and say that our algorithm takes $O(n^2)$
+steps, "on the order of $n$ squared". This is because, as $n$ gets bigger and
+bigger, only the $n^2$ term matters. For example, if $n$ were $1,000,000$, we would
+get:
+#+begin_example
+n^2 / 2 – n/2
+1,000,000^2 / 2 – 1,000,000/2
+500,000,000,000 – 500,000
+499,999,500,000
+#+end_example
+
+It turns out, there are other common orders of magnitude:
+- $O(n^2)$
+- $O(n \log n)$
+- $O(n)$
+- $O(\log n)$
+- $O(1)$
+
+Searching through a phone book, one page at a time, has $O(n)$ running time,
+since we need one step for every page. Using binary search would have $O(\log
+n)$ running time, since we divided the problem in half each time.
+
+Let’s take another array of numbers, but this time, use an empty array of the
+same size as our working space:
+#+begin_example
+4 2 7 5 6 8 3 1
+_ _ _ _ _ _ _ _
+#+end_example
+
+Since we have 8 numbers, let's look at the first half, the first 4. We'll sort
+that recursively, and look at just the left half of that. With 2 numbers, ~4 2~,
+we look at the left half of that (sorted), and the right half of that (sorted),
+and combine them by sorting them, ~2 4~. We’ll move them to our second array:
+#+begin_example
+_ _ 7 5 6 8 3 1
+2 4 _ _ _ _ _ _
+#+end_example
+
+We repeat this, for the right half of the original half:
+#+begin_example
+_ _ | _ _ 6 8 3 1
+2 4 | 5 7 _ _ _ _
+#+end_example
+
+Then, we merge those halves, to get a sorted left half:
+#+begin_example
+_ _ _ _ 6 8 3 1
+_ _ _ _ _ _ _ _
+2 4 5 7 _ _ _ _
+#+end_example
+
+We repeat, for the right half:
+#+begin_example
+_ _ _ _ | _ _ _ _
+_ _ _ _ | _ _ _ _
+2 4 5 7 | 1 3 6 8
+#+end_example
+
+And now, we can merge both halves:
+#+begin_example
+_ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _
+_ _ _ _ _ _ _ _
+1 2 3 4 5 6 7 8
+#+end_example
+
+Each number had to move 3 times, since we divided 8 by 2 three times, or $\log
+n$ times. So this algorithm takes $O(n \log n)$ to sort a list.
+
+For demos look at [[https://www.toptal.com/developers/sorting-algorithms][Sorting Algorithms Animations]].
