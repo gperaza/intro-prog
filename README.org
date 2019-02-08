@@ -48,6 +48,7 @@ them only once. After you have accepted the assignment, you should have a
 private copy of the assignment repository for you to work it.
 
 - Problem set 2: https://classroom.github.com/a/KvrOkHjM
+- Problem set 3: https://classroom.github.com/a/o-UiyyI2
 * Resources
 - We will use the command line heavily throughout the course, a list of common
   used command can be found at: [[file:resources/01-command-line.org]]
