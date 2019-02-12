@@ -3,10 +3,10 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2019-01-22 mar 11:36 -->
+<!-- 2019-02-11 lun 14:35 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Class notes: C class 1</title>
+<title>Class notes: C</title>
 <meta name="generator" content="Org mode" />
 <meta name="author" content="Gonzalo G. Peraza Mues" />
 <style type="text/css">
@@ -204,7 +204,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012-2018 Free Software Foundation, Inc.
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -248,45 +248,45 @@ for the JavaScript code in this tag.
 </head>
 <body>
 <div id="content">
-<h1 class="title">Class notes: C class 1</h1>
+<h1 class="title">Class notes: C</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org8a4ceed">1. Hello world</a></li>
-<li><a href="#orgb17d191">2. Variables</a></li>
-<li><a href="#org2f157ce">3. Conditionals</a>
+<li><a href="#orgf31e244">1. Hello world</a></li>
+<li><a href="#org2811dde">2. Variables</a></li>
+<li><a href="#orgd8b2ca4">3. Conditionals</a>
 <ul>
-<li><a href="#org95c50f2">3.1. Comparison operators in C</a></li>
+<li><a href="#orga841fc2">3.1. Comparison operators in C</a></li>
 </ul>
 </li>
-<li><a href="#org9a0d29c">4. Loops</a></li>
-<li><a href="#org6c861e3">5. Asking for input</a></li>
-<li><a href="#orge70e96a">6. hello.c</a></li>
-<li><a href="#org411c586">7. Compiling</a></li>
-<li><a href="#orgf914eaa">8. getting user input</a></li>
-<li><a href="#orgf586f1b">9. Debugging</a></li>
-<li><a href="#orgbb07524">10. int.c</a></li>
-<li><a href="#orgfa88912">11. float.c</a></li>
-<li><a href="#orgcc62cfa">12. ints.c</a></li>
-<li><a href="#orgdf2b452">13. floats.c</a></li>
-<li><a href="#orgf74b039">14. doubles.c</a></li>
-<li><a href="#org0ddaf23">15. parity.c</a></li>
-<li><a href="#org61959b1">16. conditions.c</a></li>
-<li><a href="#orgc189a90">17. answer.c</a>
+<li><a href="#orgc167d08">4. Loops</a></li>
+<li><a href="#org49a89c9">5. Asking for input</a></li>
+<li><a href="#orgdd6e375">6. hello.c</a></li>
+<li><a href="#org53605a9">7. Compiling</a></li>
+<li><a href="#orgbd7c6dd">8. getting user input</a></li>
+<li><a href="#org8ef3084">9. Debugging</a></li>
+<li><a href="#orgfd9de7d">10. int.c</a></li>
+<li><a href="#org007ff34">11. float.c</a></li>
+<li><a href="#org17e3512">12. ints.c</a></li>
+<li><a href="#org9ff8435">13. floats.c</a></li>
+<li><a href="#orgec27341">14. doubles.c</a></li>
+<li><a href="#orgaf63a50">15. parity.c</a></li>
+<li><a href="#org9546c8f">16. conditions.c</a></li>
+<li><a href="#org458eb81">17. answer.c</a>
 <ul>
-<li><a href="#orgd8ca50b">17.1. Logical operators in C</a></li>
+<li><a href="#org8f4e859">17.1. Logical operators in C</a></li>
 </ul>
 </li>
-<li><a href="#org7ed8948">18. Building functions</a></li>
-<li><a href="#orgc002591">19. positive.c</a></li>
-<li><a href="#org968d94a">20. Overflow</a></li>
+<li><a href="#org1aa63a6">18. Building functions</a></li>
+<li><a href="#orgbeff16c">19. positive.c</a></li>
+<li><a href="#org54c3d1c">20. Overflow</a></li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org8a4ceed" class="outline-2">
-<h2 id="org8a4ceed"><span class="section-number-2">1</span> Hello world</h2>
+<div id="outline-container-orgf31e244" class="outline-2">
+<h2 id="orgf31e244"><span class="section-number-2">1</span> Hello world</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 Scratch equivalent:
@@ -313,8 +313,8 @@ Let's start by decomposing the elements of the function call:
 </div>
 </div>
 
-<div id="outline-container-orgb17d191" class="outline-2">
-<h2 id="orgb17d191"><span class="section-number-2">2</span> Variables</h2>
+<div id="outline-container-org2811dde" class="outline-2">
+<h2 id="org2811dde"><span class="section-number-2">2</span> Variables</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 To create a variable in C (equal means assignment):
@@ -350,8 +350,8 @@ Scratch equivalent:
 </div>
 </div>
 
-<div id="outline-container-org2f157ce" class="outline-2">
-<h2 id="org2f157ce"><span class="section-number-2">3</span> Conditionals</h2>
+<div id="outline-container-orgd8b2ca4" class="outline-2">
+<h2 id="orgd8b2ca4"><span class="section-number-2">3</span> Conditionals</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 A simple <code>if</code> conditional:
@@ -414,8 +414,8 @@ Scratch equivalent:
 </p>
 </div>
 
-<div id="outline-container-org95c50f2" class="outline-3">
-<h3 id="org95c50f2"><span class="section-number-3">3.1</span> Comparison operators in C</h3>
+<div id="outline-container-orga841fc2" class="outline-3">
+<h3 id="orga841fc2"><span class="section-number-3">3.1</span> Comparison operators in C</h3>
 <div class="outline-text-3" id="text-3-1">
 <ul class="org-ul">
 <li>==: equal to</li>
@@ -430,8 +430,8 @@ Scratch equivalent:
 </div>
 
 
-<div id="outline-container-org9a0d29c" class="outline-2">
-<h2 id="org9a0d29c"><span class="section-number-2">4</span> Loops</h2>
+<div id="outline-container-orgc167d08" class="outline-2">
+<h2 id="orgc167d08"><span class="section-number-2">4</span> Loops</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 Infinite loops:
@@ -465,8 +465,8 @@ Scratch alternative: <img src="figs/repeat.png" alt="repeat.png" />
 </div>
 </div>
 
-<div id="outline-container-org6c861e3" class="outline-2">
-<h2 id="org6c861e3"><span class="section-number-2">5</span> Asking for input</h2>
+<div id="outline-container-org49a89c9" class="outline-2">
+<h2 id="org49a89c9"><span class="section-number-2">5</span> Asking for input</h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">answer</span> = get_string<span style="color: #707183;">(</span><span style="color: #008000;">"What's your name?\n"</span><span style="color: #707183;">)</span>;
@@ -483,8 +483,8 @@ Scratch alternative: <img src="figs/ask_say_join.png" alt="ask_say_join.png" />
 </div>
 </div>
 
-<div id="outline-container-orge70e96a" class="outline-2">
-<h2 id="orge70e96a"><span class="section-number-2">6</span> hello.c</h2>
+<div id="outline-container-orgdd6e375" class="outline-2">
+<h2 id="orgdd6e375"><span class="section-number-2">6</span> hello.c</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 We will now create our first program, create a new directory and type the
@@ -502,8 +502,8 @@ following in simple text file named <code>hello.c</code>:
 </div>
 </div>
 
-<div id="outline-container-org411c586" class="outline-2">
-<h2 id="org411c586"><span class="section-number-2">7</span> Compiling</h2>
+<div id="outline-container-org53605a9" class="outline-2">
+<h2 id="org53605a9"><span class="section-number-2">7</span> Compiling</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 To actually run the program, you must compile it to transform it to machine
@@ -543,8 +543,8 @@ configuration parameters we can pass to command line programs.
 </div>
 </div>
 
-<div id="outline-container-orgf914eaa" class="outline-2">
-<h2 id="orgf914eaa"><span class="section-number-2">8</span> getting user input</h2>
+<div id="outline-container-orgbd7c6dd" class="outline-2">
+<h2 id="orgbd7c6dd"><span class="section-number-2">8</span> getting user input</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 We can modify our program to obtain some input:
@@ -562,8 +562,8 @@ We can modify our program to obtain some input:
 </div>
 </div>
 
-<div id="outline-container-orgf586f1b" class="outline-2">
-<h2 id="orgf586f1b"><span class="section-number-2">9</span> Debugging</h2>
+<div id="outline-container-org8ef3084" class="outline-2">
+<h2 id="org8ef3084"><span class="section-number-2">9</span> Debugging</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 If we try to run this, we would get some errors, the first one being that string
@@ -627,8 +627,8 @@ string place holder <code>%s</code> in the <code>printf</code> function
 </div>
 </div>
 
-<div id="outline-container-orgbb07524" class="outline-2">
-<h2 id="orgbb07524"><span class="section-number-2">10</span> int.c</h2>
+<div id="outline-container-orgfd9de7d" class="outline-2">
+<h2 id="orgfd9de7d"><span class="section-number-2">10</span> int.c</h2>
 <div class="outline-text-2" id="text-10">
 <p>
 Make a file <code>int.c</code>:
@@ -647,8 +647,8 @@ Make a file <code>int.c</code>:
 </div>
 </div>
 
-<div id="outline-container-orgfa88912" class="outline-2">
-<h2 id="orgfa88912"><span class="section-number-2">11</span> float.c</h2>
+<div id="outline-container-org007ff34" class="outline-2">
+<h2 id="org007ff34"><span class="section-number-2">11</span> float.c</h2>
 <div class="outline-text-2" id="text-11">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
@@ -664,8 +664,8 @@ Make a file <code>int.c</code>:
 </div>
 </div>
 
-<div id="outline-container-orgcc62cfa" class="outline-2">
-<h2 id="orgcc62cfa"><span class="section-number-2">12</span> ints.c</h2>
+<div id="outline-container-org17e3512" class="outline-2">
+<h2 id="org17e3512"><span class="section-number-2">12</span> ints.c</h2>
 <div class="outline-text-2" id="text-12">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
@@ -691,8 +691,8 @@ Make a file <code>int.c</code>:
 </div>
 </div>
 
-<div id="outline-container-orgdf2b452" class="outline-2">
-<h2 id="orgdf2b452"><span class="section-number-2">13</span> floats.c</h2>
+<div id="outline-container-org9ff8435" class="outline-2">
+<h2 id="org9ff8435"><span class="section-number-2">13</span> floats.c</h2>
 <div class="outline-text-2" id="text-13">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
@@ -730,8 +730,8 @@ represent that many decimal places.
 </div>
 </div>
 
-<div id="outline-container-orgf74b039" class="outline-2">
-<h2 id="orgf74b039"><span class="section-number-2">14</span> doubles.c</h2>
+<div id="outline-container-orgec27341" class="outline-2">
+<h2 id="orgec27341"><span class="section-number-2">14</span> doubles.c</h2>
 <div class="outline-text-2" id="text-14">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
@@ -758,8 +758,8 @@ a double, uses twice as many bits, or 8 bytes.
 </div>
 </div>
 
-<div id="outline-container-org0ddaf23" class="outline-2">
-<h2 id="org0ddaf23"><span class="section-number-2">15</span> parity.c</h2>
+<div id="outline-container-orgaf63a50" class="outline-2">
+<h2 id="orgaf63a50"><span class="section-number-2">15</span> parity.c</h2>
 <div class="outline-text-2" id="text-15">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
@@ -785,8 +785,8 @@ a double, uses twice as many bits, or 8 bytes.
 </div>
 </div>
 
-<div id="outline-container-org61959b1" class="outline-2">
-<h2 id="org61959b1"><span class="section-number-2">16</span> conditions.c</h2>
+<div id="outline-container-org9546c8f" class="outline-2">
+<h2 id="org9546c8f"><span class="section-number-2">16</span> conditions.c</h2>
 <div class="outline-text-2" id="text-16">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
@@ -819,8 +819,8 @@ a double, uses twice as many bits, or 8 bytes.
 </div>
 </div>
 
-<div id="outline-container-orgc189a90" class="outline-2">
-<h2 id="orgc189a90"><span class="section-number-2">17</span> answer.c</h2>
+<div id="outline-container-org458eb81" class="outline-2">
+<h2 id="org458eb81"><span class="section-number-2">17</span> answer.c</h2>
 <div class="outline-text-2" id="text-17">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
@@ -845,8 +845,8 @@ a double, uses twice as many bits, or 8 bytes.
 </div>
 </div>
 
-<div id="outline-container-orgd8ca50b" class="outline-3">
-<h3 id="orgd8ca50b"><span class="section-number-3">17.1</span> Logical operators in C</h3>
+<div id="outline-container-org8f4e859" class="outline-3">
+<h3 id="org8f4e859"><span class="section-number-3">17.1</span> Logical operators in C</h3>
 <div class="outline-text-3" id="text-17-1">
 <ul class="org-ul">
 <li>!: NOT</li>
@@ -857,8 +857,8 @@ a double, uses twice as many bits, or 8 bytes.
 </div>
 </div>
 
-<div id="outline-container-org7ed8948" class="outline-2">
-<h2 id="org7ed8948"><span class="section-number-2">18</span> Building functions</h2>
+<div id="outline-container-org1aa63a6" class="outline-2">
+<h2 id="org1aa63a6"><span class="section-number-2">18</span> Building functions</h2>
 <div class="outline-text-2" id="text-18">
 <p>
 Lets print cough 3 times:
@@ -926,8 +926,8 @@ Abstracting further:
 </div>
 </div>
 
-<div id="outline-container-orgc002591" class="outline-2">
-<h2 id="orgc002591"><span class="section-number-2">19</span> positive.c</h2>
+<div id="outline-container-orgbeff16c" class="outline-2">
+<h2 id="orgbeff16c"><span class="section-number-2">19</span> positive.c</h2>
 <div class="outline-text-2" id="text-19">
 <div class="org-src-container">
 <pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
@@ -957,8 +957,8 @@ Abstracting further:
 </div>
 </div>
 
-<div id="outline-container-org968d94a" class="outline-2">
-<h2 id="org968d94a"><span class="section-number-2">20</span> Overflow</h2>
+<div id="outline-container-org54c3d1c" class="outline-2">
+<h2 id="org54c3d1c"><span class="section-number-2">20</span> Overflow</h2>
 <div class="outline-text-2" id="text-20">
 <p>
 Again, memory is finite. There exists a maximum integer value in can represent,
@@ -987,7 +987,7 @@ leading 1. For 32 bits int there is max value ~ 4 billion.
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Gonzalo G. Peraza Mues</p>
-<p class="date">Created: 2019-01-22 mar 11:36</p>
+<p class="date">Created: 2019-02-11 lun 14:35</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

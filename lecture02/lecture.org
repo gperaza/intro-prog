@@ -1,5 +1,5 @@
 #+SETUPFILE: https://fniessen.github.io/org-html-themes/setup/theme-readtheorg.setup
-#+TITLE: Class notes: C class 2
+#+TITLE: Class notes: Arrays
 
 * Compiling
 Compiling steps:
