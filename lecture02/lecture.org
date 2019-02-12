@@ -730,7 +730,7 @@ we've seen thus far.
 The first algorithm, *bubble sort*, involved comparing pairs of numbers next to
 each other, until the largest bubbled up to the right. We might write that in
 pseudocode as:
-#+begin_src :tangle bubble.psudocode
+#+begin_src pseudo :tangle bubble.psudocode
 repeat until no swaps
     for i from 0 to n-2
         if i'th and i+1'th elements out of order
@@ -738,7 +738,7 @@ repeat until no swaps
 #+end_src
 
 The second algorithm, *selection sort*, might be as follows:
-#+begin_src :tangle selection.pseudocode
+#+begin_src pseudo :tangle selection.pseudocode
 for i from 0 to n-1
     find smallest element between i'th and n-1'th
     swap smallest with i'th element
