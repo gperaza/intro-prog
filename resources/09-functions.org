@@ -1,0 +1,109 @@
+So far, all the programs we've been writing in the course have been written
+inside of ~main()~. That hasn't been a problem yet, but it could be if our
+programs start to become unwieldy. C and nearly all languages developed since
+allow us to write *functions*, sometimes also known as *procedures*, *methods*,
+or *subroutines*.
+
+A function is a /black box/ with a set of 0+ inputs and 1 output.
+[[file:figs/function.png]]
+
+We call it a /black box/ because, if we aren't writing the function ourselves,
+we don't need to know the underlying implementation. That's part of the contract
+of using functions. The behavior is typically predictable based on that
+name. That's why most functions have clear, obvious(ish) names, and are
+well-documented.
+
+Why use functions?
+- Organization: Functions help break up a complicated problem into more
+  manageable subparts.
+- Simplification: Smaller component tend to be easier to design, implement, and debug.
+- Reusability: Functions can be recycled; you only need to write them once, but
+  can use them as often as you need!
+
+The first step to creating a function is to declare it. This gives the compiler
+a heads-up that a user-written function appears in the code. Function
+declarations should always go atop your code, before you begin writing
+~main()~. There is a standard form every function declaration follows:
+#+begin_src C
+return_type name(argument_list);
+#+end_src
+
+The ~return_type~ is what kind of variable the function will output. The ~name~
+is what you call your function. The ~argument_list~ is the comma-separated set
+of inputs to your function, each of which has a type and a name.
+
+Example: A function to add two integers,
+#+begin_src C
+int add_two_ints(int a, int b);
+#+end_src
+
+The sum of two integers is going to be an integer as well. Given what this
+function does, make sure to give it a appropriate name. There are two inputs to
+this function, and we need to give a name to each of them for purposes of the
+function. There's nothing important about these inputs as far as we know, so
+giving them simple names is okay.
+
+Example: A function to multiply two floating point number,
+#+begin_src C
+float mul_two_reals(float x, float y);
+#+end_src
+
+The product of two floating point numbers is also a floating point number. let's
+be sure to give this a relevant name. Again, the names of these particular
+inputs don't seem to be important, so we call them anything simple.
+
+The second step to creating a function is to define it. This allows for
+predictable behavior when the function is called with inputs. Let's try to
+define ~mult_two_reals()~. A function definition looks *almost* identical to a
+function declaration, with a small change:
+#+begin_src C
+float mul_two_reals(float x, float y)
+{
+    float product = x * y;
+    return product;
+}
+#+end_src
+
+Now, let's define ~add_two_ints()~:
+#+begin_src C
+int add_two_ints(int a, int b)
+{
+    return a + b;
+}
+#+end_src
+
+Now that you've created a function, time to use it! To call a function, simply
+pass it appropriate arguments and assign its return value to something of the
+correct type. To illustrate this, consider the following code:
+#+begin_src C
+#include <cs50.h>
+#include <stdio.h>
+
+// declare functions
+int add_two_ints(int a, int b);
+
+int main(void)
+{
+    // ask user for input
+    int x = get_int("Give me an integer: ");
+    int y = get_int("Give me another integer: ");
+
+    // add the two numbers together via a function call
+    int z = add_two_ints(x, y);
+
+    // output the results
+    printf("The sum of %i and %i is %i!\n", x, y, z);
+}
+
+int add_two_ints(int a, int b)
+{
+    int sum = a + b;
+    return sum;
+}
+#+end_src
+
+Recall from our discussion of data types that functions can sometimes take no
+inputs. In that case, we declare functions as having a ~void~ argument list.
+
+Recall also that functions sometimes do not have an output. In that case, we
+declare the function as having a ~void~ return type.
