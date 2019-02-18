@@ -1,0 +1,1187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-02-18 lun 10:09 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Class notes: Memory</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Gonzalo G. Peraza Mues" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Class notes: Memory</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org203f338">1. Strings</a></li>
+<li><a href="#org100e414">2. Memory</a></li>
+<li><a href="#org8cf8eaa">3. Memory layout</a></li>
+<li><a href="#orgbc11bc8">4. Structs</a></li>
+<li><a href="#orga582bca">5. Enhance?</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org203f338" class="outline-2">
+<h2 id="org203f338"><span class="section-number-2">1</span> Strings</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+We've been using helpful functions from the CS50 Library, like <code>get_int</code> or
+<code>get_string</code>, to get input of a specific type from the user. These functions are
+generally tricky to write, because we want to prompt the user over and over
+again, if the input they give us isn't actually valid.
+</p>
+
+<p>
+Today, we'll look into the <code>string</code> type. As we learned last week, a <code>string</code> is
+just an array of characters, stored back-to-back. But let's investigate what a
+<code>string</code> variable actually is.
+</p>
+
+<p>
+Let's open <code>compare0.c</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Get two integers</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = get_int<span style="color: #7388D6;">(</span><span style="color: #008000;">"i: "</span><span style="color: #7388D6;">)</span>;
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">j</span> = get_int<span style="color: #7388D6;">(</span><span style="color: #008000;">"j: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Compare integers</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>i == j<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"same\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">else</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"different\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+
+<p>
+As expected, if we provide the same values for \(i\) and \(j\), we see that they're
+the same.
+</p>
+
+<p>
+In <code>compare1.c</code>, we'll try to do the same with strings:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Get two strings</span>
+    <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">s</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: "</span><span style="color: #7388D6;">)</span>;
+    <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">t</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"t: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>s == t<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"same\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">else</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"different\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+Hmm, no matter what we type in for our strings, our program thinks they are
+different.
+</p>
+
+<p>
+It turns out, <code>string</code> is not actually a data type in C. The word "string" is
+common in computer science, but there is no way to store strings in C. Instead,
+we defined that type in the CS50 Library.
+</p>
+
+<p>
+Recall that strings are just arrays of characters, so when we ran our compare1
+program, we got two strings as input from the user, and those might be stored in
+memory as the following:
+</p>
+
+<div class="figure">
+<p><img src="figures/strings_2019-02-18_08-43-03.png" alt="strings_2019-02-18_08-43-03.png" />
+</p>
+</div>
+
+<p>
+Each character is in one byte, and somewhere we have bytes in memory containing
+the values for each of string.
+</p>
+
+<p>
+It turns out, each byte in memory has a numeric location, or address. For
+example, the character <code>B</code> might have the address 100, and <code>V</code> might have ended
+up in 900 (depending on what parts of memory were available, or free):
+</p>
+
+<div class="figure">
+<p><img src="figures/strings_with_addresses_2019-02-18_08-44-11.png" alt="strings_with_addresses_2019-02-18_08-44-11.png" />
+</p>
+</div>
+
+<p>
+Notice that, since each string is an array of characters, each character within
+the array has consecutive addresses, since they are stored next to each other in
+memory. But the strings themselves might have very different addresses.
+</p>
+
+<p>
+So, <code>get_string</code> actually returns just the address of the first character of the
+string. (We can tell where it ends by looking for the <code>null</code> character, <code>\0</code>.)
+Now, we can infer that comparing two "strings" actually just compares two
+addresses (which will always be different, since <code>get_string</code> stores the input
+in a new place each time), even if the characters stored at those addresses are
+the same.
+</p>
+
+<p>
+Other data types in C, such as <code>ints</code> or <code>floats</code>, are generally passed and
+stored as their values, since they are always a fixed number of bytes. Strings,
+on the other hand, are passed as their addresses, since they could be really
+long.
+</p>
+
+<p>
+If we do want to compare two strings, it seems like what we need to do is
+compare each character one at a time:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">string.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">bool</span> <span style="color: #006699;">compare_strings</span><span style="color: #707183;">(</span><span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">a</span>, <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">b</span><span style="color: #707183;">)</span>;
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Get two strings</span>
+    <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">s</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: "</span><span style="color: #7388D6;">)</span>;
+    <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">t</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"t: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Compare strings for equality</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>compare_strings<span style="color: #909183;">(</span>s, t<span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"same\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">else</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"different\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+
+<span style="color: #6434A3;">bool</span> <span style="color: #006699;">compare_strings</span><span style="color: #707183;">(</span><span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">a</span>, <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">b</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Compare strings' lengths</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>strlen<span style="color: #909183;">(</span>a<span style="color: #909183;">)</span> != strlen<span style="color: #909183;">(</span>b<span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">false</span>;
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Compare strings character by character</span>
+    <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 0, <span style="color: #BA36A5;">n</span> = strlen<span style="color: #909183;">(</span>a<span style="color: #909183;">)</span>; i &lt; n; i++<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Different</span>
+        <span style="color: #0000FF;">if</span> <span style="color: #909183;">(</span>a<span style="color: #709870;">[</span>i<span style="color: #709870;">]</span> != b<span style="color: #709870;">[</span>i<span style="color: #709870;">]</span><span style="color: #909183;">)</span>
+        <span style="color: #909183;">{</span>
+            <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">false</span>;
+        <span style="color: #909183;">}</span>
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Same</span>
+    <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">true</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+We write a function called <code>compare_strings</code>, which takes in two strings as
+arguments, and return a <code>bool</code>, or Boolean expression. First, we compare the
+strings' lengths, and <code>return false</code> if they are not the same. Then, we can
+check each character, and <code>return false</code> if we get to any that are different. We
+also need to remember to add the prototype, <code>bool compare_strings(string a,
+string b);</code> to the top.
+</p>
+
+<p>
+A string is actually a synonym for a <code>char *</code>. The <code>*</code> in C (which also means
+multiplication, depending on the context), means that the data type is an
+address. So a <code>char *</code> is an address to a char. And such a variable type is
+called, more formally, a <b>pointer</b>.
+</p>
+
+<p>
+Now, we can replace <code>char *</code> where we've been using string:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">string.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">bool</span> <span style="color: #006699;">compare_strings</span><span style="color: #707183;">(</span><span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">a</span>, <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">b</span><span style="color: #707183;">)</span>;
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Get two strings</span>
+    <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">s</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: "</span><span style="color: #7388D6;">)</span>;
+    <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">t</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"t: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Compare strings for equality</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>compare_strings<span style="color: #909183;">(</span>s, t<span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"same\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">else</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"different\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+
+<span style="color: #6434A3;">bool</span> <span style="color: #006699;">compare_strings</span><span style="color: #707183;">(</span><span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">a</span>, <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">b</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Compare strings' lengths</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>strlen<span style="color: #909183;">(</span>a<span style="color: #909183;">)</span> != strlen<span style="color: #909183;">(</span>b<span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">false</span>;
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Compare strings character by character</span>
+    <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 0, <span style="color: #BA36A5;">n</span> = strlen<span style="color: #909183;">(</span>a<span style="color: #909183;">)</span>; i &lt; n; i++<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Different</span>
+        <span style="color: #0000FF;">if</span> <span style="color: #909183;">(</span>a<span style="color: #709870;">[</span>i<span style="color: #709870;">]</span> != b<span style="color: #709870;">[</span>i<span style="color: #709870;">]</span><span style="color: #909183;">)</span>
+        <span style="color: #909183;">{</span>
+            <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">false</span>;
+        <span style="color: #909183;">}</span>
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Same</span>
+    <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">true</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+It turns out, there's a library function in <code>string.h</code>, written by others many
+years ago, called <code>strcmp</code>, which compares strings for us:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">string.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Get two strings</span>
+    <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">s</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: "</span><span style="color: #7388D6;">)</span>;
+    <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">t</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"t: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Compare strings for equality</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>strcmp<span style="color: #909183;">(</span>s, t<span style="color: #909183;">)</span> == 0<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"same\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">else</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"different\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+
+<p>
+The return value for <code>strcmp</code>, based on looking at documentation like CS50
+Reference, will be <code>0</code> if the strings are equal, or some other value if they are
+different.
+</p>
+
+<p>
+We should also be checking for other errors, that we haven't paid attention to
+before. <code>get_string</code> is supposed to return the address to the first byte of a
+string, but sometimes it may return <code>NULL</code>, an invalid address that indicates
+something went wrong. (And that address has the value of <code>0</code>, which is a special
+address that isn't used to store anything.) To check for errors, we might do
+this:
+</p>
+<div class="org-src-container">
+<pre class="src src-C">
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">string.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Get a string</span>
+    <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">s</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: "</span><span style="color: #7388D6;">)</span>;
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>s == <span style="color: #D0372D;">NULL</span><span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        <span style="color: #0000FF;">return</span> 1;
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Get another string</span>
+    <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">t</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"t: "</span><span style="color: #7388D6;">)</span>;
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>t == <span style="color: #D0372D;">NULL</span><span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        <span style="color: #0000FF;">return</span> 1;
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Compare strings for equality</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>strcmp<span style="color: #909183;">(</span>s, t<span style="color: #909183;">)</span> == 0<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"same\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">else</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"different\n"</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">return</span> 0;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+If, for some reason, <code>get_string</code> doesn't return a valid address, we ourselves
+will return an exit code of <code>1</code>, to indicate some error has occurred. If we
+continued, we might see a <i>segmentation fault</i>, which means that we tried to
+access memory that we aren't able to (such as at the <code>NULL</code> address). We can
+simplify the condition to just <code>if (!s)</code>, since "not s" will be "not 0" when s is
+<code>NULL</code>, which ultimately resolves to "true".
+</p>
+
+<p>
+Now, let's try to copy a string:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">ctype.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">string.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Get a string</span>
+    <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">s</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Copy string's address</span>
+    <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">t</span> = s;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Capitalize first letter in string</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>strlen<span style="color: #909183;">(</span>t<span style="color: #909183;">)</span> &gt; 0<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        t<span style="color: #909183;">[</span>0<span style="color: #909183;">]</span> = toupper<span style="color: #909183;">(</span>t<span style="color: #709870;">[</span>0<span style="color: #709870;">]</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Print string twice</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: %s\n"</span>, s<span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"t: %s\n"</span>, t<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+We get a <code>string s</code>, and copy the value of <code>s</code> into <code>t</code>. Then, we capitalize the
+first letter in <code>t</code>. But when we run our program, we see that both <code>s</code> and <code>t</code>
+are now capitalized. Since we set <code>s</code> and <code>t</code> to the same values, they're actually
+pointers to the same character, and so we capitalized the same character:
+</p>
+
+
+<div class="figure">
+<p><img src="figures/pointers_2019-02-18_08-55-39.png" alt="pointers_2019-02-18_08-55-39.png" />
+</p>
+</div>
+
+<p>
+To actually make a copy of a string, we have to do a little more work:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">ctype.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">string.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Get a string</span>
+    <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">s</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: "</span><span style="color: #7388D6;">)</span>;
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>!s<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        <span style="color: #0000FF;">return</span> 1;
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Allocate memory for another string</span>
+    <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">t</span> = malloc<span style="color: #7388D6;">(</span><span style="color: #909183;">(</span>strlen<span style="color: #709870;">(</span>s<span style="color: #709870;">)</span> + 1<span style="color: #909183;">)</span> * <span style="color: #0000FF;">sizeof</span><span style="color: #909183;">(</span><span style="color: #6434A3;">char</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>!t<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        <span style="color: #0000FF;">return</span> 1;
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Copy string into memory</span>
+    <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 0, <span style="color: #BA36A5;">n</span> = strlen<span style="color: #909183;">(</span>s<span style="color: #909183;">)</span>; i &lt;= n; i++<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        t<span style="color: #909183;">[</span>i<span style="color: #909183;">]</span> = s<span style="color: #909183;">[</span>i<span style="color: #909183;">]</span>;
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Capitalize first letter in copy</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>strlen<span style="color: #909183;">(</span>t<span style="color: #909183;">)</span> &gt; 0<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        t<span style="color: #909183;">[</span>0<span style="color: #909183;">]</span> = toupper<span style="color: #909183;">(</span>t<span style="color: #709870;">[</span>0<span style="color: #709870;">]</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Print strings</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: %s\n"</span>, s<span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"t: %s\n"</span>, t<span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Free memory</span>
+    free<span style="color: #7388D6;">(</span>t<span style="color: #7388D6;">)</span>;
+    <span style="color: #0000FF;">return</span> 0;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+We create a new variable, <code>t</code>, of the type <code>char *</code>, with <code>char *t</code>. Now, we
+want to point it to a new chunk of memory that's large enough to store the copy
+of the string. With <code>malloc</code>, we can allocate some number of bytes in memory
+(that aren't already used to store other values), and we pass in the number of
+bytes we'd like. We already know the length of <code>s</code>, so we add 1 to that for the
+terminating null character, and we multiply that by <code>sizeof(char)</code> (which gets
+us the number of bytes for each character) to be sure that we have enough
+memory. So, our final line of code is <code>char *t = malloc((strlen(s) + 1) *
+sizeof(char));</code>.
+</p>
+
+<p>
+Then, we copy each character, one at a time, and now we can capitalize just the
+first letter of <code>t</code>. And we use <code>i &lt;= n</code>, since we actually want to go up to one
+past <code>n</code>, to ensure we copy the terminating character in the string. Finally,
+after we're done, we call <code>free(t)</code>, which tells our computer that those bytes
+are no longer useful to our program, and so those bytes in memory can be reused
+again. We can actually also use the <code>strcpy</code> library function, which we can
+learn about through reading documentation, to copy a string.
+</p>
+
+<p>
+A <i>memory leak</i> happens when we allocate more and more memory for our program to
+use, but we don't free that memory. Then, our computer gets slower and slower
+(since it has to compensate for less and less memory).
+</p>
+
+<p>
+Let's look at why it might be hard to get input from a user:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">x</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x: "</span><span style="color: #7388D6;">)</span>;
+    scanf<span style="color: #7388D6;">(</span><span style="color: #008000;">"%i"</span>, &amp;x<span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x: %i\n"</span>, x<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+<code>scanf</code> is a function that gets input from the user, according to a particular
+format. We pass in <code>%i</code> to indicate that we're looking for an integer, and we
+use <code>&amp;x</code> to get the <b>address</b> of <code>x</code>, so <code>scanf</code> can put the value into the
+right place in memory.
+</p>
+
+<p>
+But now let's try to get a string:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">s</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: "</span><span style="color: #7388D6;">)</span>;
+    scanf<span style="color: #7388D6;">(</span><span style="color: #008000;">"%s"</span>, s<span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: %s\n"</span>, s<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+<p>
+Since we didn't allocate any memory for the actual bytes of the string, <code>scanf</code>
+had nowhere to store the input.
+</p>
+
+<p>
+We can allocate some number of bytes as an array of characters:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">char</span> <span style="color: #BA36A5;">s</span><span style="color: #7388D6;">[</span>5<span style="color: #7388D6;">]</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: "</span><span style="color: #7388D6;">)</span>;
+    scanf<span style="color: #7388D6;">(</span><span style="color: #008000;">"%s"</span>, s<span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: %s\n"</span>, s<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+<p>
+Now, we have 5 bytes in memory into which we can store input. Notice that we can
+pass in <code>s</code> as an address, since arrays can be treated like pointers to the
+first element in the array. But if we were to type in a much longer string, we
+eventually get a "segmentation fault", where we tried to access a segment of
+memory we couldn't or shouldn't. It turns out that <code>scanf</code> doesn't know how much
+memory is allocated, so it keeps writing to memory, starting at the address <code>s</code>,
+for as much input as is passed in, even though we might not have allocated as
+much. <code>get_string</code> handles this for us, and allocates memory as needed. (And if
+you're super interested, the source code for the CS50 Library is available!)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org100e414" class="outline-2">
+<h2 id="org100e414"><span class="section-number-2">2</span> Memory</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+To tie this all together, recall that we have physical chips of RAM in our
+computers, that store all the bytes we have. And each byte has an address. We
+can see this with <code>addresses.c</code>:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Get two strings</span>
+    <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">s</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: "</span><span style="color: #7388D6;">)</span>;
+    <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">t</span> = get_string<span style="color: #7388D6;">(</span><span style="color: #008000;">"t: "</span><span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Print strings' addresses</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"s: %p\n"</span>, s<span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"t: %p\n"</span>, t<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+
+<p>
+Here, we tell <code>printf</code> to treat <code>s</code> and <code>t</code> as pointers with <code>%p</code>, so we see
+addresses like <code>0x2331010</code> and <code>0x2331050</code>.
+</p>
+
+<p>
+The values are super big (because there are lots of location in memory), and
+they're usually noted in a system called hexadecimal. Like binary and decimal,
+hexadecimal is a way to represent numbers, and it has 16 possible values per
+digit, 0-9 and A-F. (It just happens that the addresses for <code>s</code> and <code>t</code> had no
+alphabetical characters.) And a value in hexadecimal will conventionally start
+with <code>0x</code>, to indicate that.
+</p>
+
+<p>
+Now, let's say we wanted to swap the values of two integers.
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #6434A3;">void</span> <span style="color: #006699;">swap</span><span style="color: #707183;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">a</span>, <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">b</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">tmp</span> = a;
+    a = b;
+    b = tmp;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+But, if we tried to use that function in a program, we don't see any changes:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">swap</span><span style="color: #707183;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">a</span>, <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">b</span><span style="color: #707183;">)</span>;
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">x</span> = 1;
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">y</span> = 2;
+
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x is %i, y is %i\n"</span>, x, y<span style="color: #7388D6;">)</span>;
+    swap<span style="color: #7388D6;">(</span>x, y<span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x is %i, y is %i\n"</span>, x, y<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">swap</span><span style="color: #707183;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">a</span>, <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">b</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">tmp</span> = a;
+    a = b;
+    b = tmp;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+It turns out that the swap function gets its own variables, <code>a</code> and <code>b</code> when
+they are passed in, that are copies of <code>x</code> and <code>y</code>, and so changing those values
+don't change <code>x</code> and <code>y</code> in the main function.
+</p>
+
+<p>
+By passing in the address of <code>x</code> and <code>y</code>, our <code>swap</code> function can actually work:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">swap</span><span style="color: #707183;">(</span><span style="color: #6434A3;">int</span> *<span style="color: #BA36A5;">a</span>, <span style="color: #6434A3;">int</span> *<span style="color: #BA36A5;">b</span><span style="color: #707183;">)</span>;
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">x</span> = 1;
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">y</span> = 2;
+
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x is %i, y is %i\n"</span>, x, y<span style="color: #7388D6;">)</span>;
+    swap<span style="color: #7388D6;">(</span>&amp;x, &amp;y<span style="color: #7388D6;">)</span>;
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"x is %i, y is %i\n"</span>, x, y<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+
+<span style="color: #6434A3;">void</span> <span style="color: #006699;">swap</span><span style="color: #707183;">(</span><span style="color: #6434A3;">int</span> *<span style="color: #BA36A5;">a</span>, <span style="color: #6434A3;">int</span> *<span style="color: #BA36A5;">b</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">tmp</span> = *a;
+    *a = *b;
+    *b = tmp;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+The addresses of <code>x</code> and <code>y</code> are passed in from <code>main</code> to <code>swap</code>, and we use the
+<code>*a</code> syntax to follow (or <b>dereference</b>) a pointer and get the value stored
+there. We save that to <code>tmp</code>, and then take the value at <code>b</code> and store that as
+the value of <code>a</code>. Finally, we store the value of <code>tmp</code> as the value of <code>b</code>, and
+we're done.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org8cf8eaa" class="outline-2">
+<h2 id="org8cf8eaa"><span class="section-number-2">3</span> Memory layout</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Within our computer's memory, the different types of data that need to be stored
+for our program are organized into different sections:
+</p>
+
+
+<div class="figure">
+<p><img src="figures/memory_layout_2019-02-18_09-55-24.png" alt="memory_layout_2019-02-18_09-55-24.png" />
+</p>
+</div>
+
+<p>
+The text section is our compiled program's binary code. When we run our program,
+that code is loaded into the "top" of memory.
+</p>
+
+<p>
+The heap section is an open area where <code>malloc</code> can get free memory from, for
+our program to use.
+</p>
+
+<p>
+The stack section is used by functions in our program as they are called. For
+example, our <code>main</code> function is at the very bottom of the stack, and has the
+variables <code>x</code> and <code>y</code>. The <code>swap</code> function, when it's called, has some memory
+that's on top of <code>main</code>, with the variables <code>a</code>, <code>b</code>, and <code>tmp</code>:
+</p>
+
+
+<div class="figure">
+<p><img src="figures/stack_2019-02-18_09-57-14.png" alt="stack_2019-02-18_09-57-14.png" />
+</p>
+</div>
+
+<p>
+Once the function <code>swap</code> returns, the memory it was using is freed for the next
+function call, and we lose anything we did, other than the return values. So by
+passing in the addresses of <code>x</code> and <code>y</code> from <code>main</code> to <code>swap</code>, we could actually
+change the values of <code>x</code> and <code>y</code>.
+</p>
+
+<p>
+Global variables are in the initialized data and uninitialized data sections,
+and environment variables from the command-line are also stored in a section.
+</p>
+
+<p>
+Let's look at a buggy section of code:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">int</span> *<span style="color: #BA36A5;">x</span>;
+    <span style="color: #6434A3;">int</span> *<span style="color: #BA36A5;">y</span>;
+
+    x = malloc<span style="color: #7388D6;">(</span><span style="color: #0000FF;">sizeof</span><span style="color: #909183;">(</span><span style="color: #6434A3;">int</span><span style="color: #909183;">)</span><span style="color: #7388D6;">)</span>;
+
+    *x = 42;
+    *y = 13;
+
+    y = x;
+
+    *y = 13;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+Here, we declare two pointers called <code>x</code> and <code>y</code>. We allocate memory for an integer
+for <code>x</code>, but not <code>y</code>, so trying to store the value 13 into <code>*y</code> might lead to a
+segmentation fault.
+</p>
+
+<p>
+But if we set <code>y</code> to be the same as <code>x</code>, pointing to the same address, we can
+successfully store the value 13 to that location.
+</p>
+
+<p>
+You can watch the following clip for a nice explanation:
+<a href="https://www.youtube.com/watch?v=_d0jFalGxnQ">https://www.youtube.com/watch?v=_d0jFalGxnQ</a>
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgbc11bc8" class="outline-2">
+<h2 id="orgbc11bc8"><span class="section-number-2">4</span> Structs</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+We can create variables of our own type with a concept called structs. For
+example, if we wanted to store both names and dorms of individual students, we
+might have arrays for each:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Space for students</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">enrollment</span> = get_int<span style="color: #7388D6;">(</span><span style="color: #008000;">"Enrollment: "</span><span style="color: #7388D6;">)</span>;
+    <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">names</span><span style="color: #7388D6;">[</span>enrollment<span style="color: #7388D6;">]</span>;
+    <span style="color: #6434A3;">string</span> <span style="color: #BA36A5;">dorms</span><span style="color: #7388D6;">[</span>enrollment<span style="color: #7388D6;">]</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt for students' names and dorms</span>
+    <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 0; i &lt; enrollment; i++<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        names<span style="color: #909183;">[</span>i<span style="color: #909183;">]</span> = get_string<span style="color: #909183;">(</span><span style="color: #008000;">"Name: "</span><span style="color: #909183;">)</span>;
+        dorms<span style="color: #909183;">[</span>i<span style="color: #909183;">]</span> = get_string<span style="color: #909183;">(</span><span style="color: #008000;">"Dorm: "</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Print students' names and dorms</span>
+    <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 0; i &lt; enrollment; i++<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"%s is in %s.\n"</span>, names<span style="color: #709870;">[</span>i<span style="color: #709870;">]</span>, dorms<span style="color: #709870;">[</span>i<span style="color: #709870;">]</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+But we might want to start having other pieces of data, and we have to make sure
+that all the arrays are the right length, and have the data for the same person
+at the same index. and so on. Instead, we can use structs, with a <code>struct.h</code>
+file containing:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #0000FF;">typedef</span> <span style="color: #0000FF;">struct</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">name</span>;
+    <span style="color: #6434A3;">char</span> *<span style="color: #BA36A5;">dorm</span>;
+<span style="color: #707183;">}</span>
+<span style="color: #6434A3;">student</span>;
+</pre>
+</div>
+
+<p>
+And a <code>struct1.c</code> file containing:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #808080;">#include</span> <span style="color: #008000;">"struct.h"</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Space for students</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">enrollment</span> = get_int<span style="color: #7388D6;">(</span><span style="color: #008000;">"Enrollment: "</span><span style="color: #7388D6;">)</span>;
+    <span style="color: #6434A3;">student</span> <span style="color: #BA36A5;">students</span><span style="color: #7388D6;">[</span>enrollment<span style="color: #7388D6;">]</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt for students' names and dorms</span>
+    <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 0; i &lt; enrollment; i++<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        students<span style="color: #909183;">[</span>i<span style="color: #909183;">]</span>.name = get_string<span style="color: #909183;">(</span><span style="color: #008000;">"Name: "</span><span style="color: #909183;">)</span>;
+        students<span style="color: #909183;">[</span>i<span style="color: #909183;">]</span>.dorm = get_string<span style="color: #909183;">(</span><span style="color: #008000;">"Dorm: "</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Print students' names and dorms</span>
+    <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 0; i &lt; enrollment; i++<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"%s is in %s.\n"</span>, students<span style="color: #709870;">[</span>i<span style="color: #709870;">]</span>.name, students<span style="color: #709870;">[</span>i<span style="color: #709870;">]</span>.dorm<span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+Now, a <code>student</code> is our own variable type, that itself contains two variables,
+<code>name</code> and <code>dorm</code>, that we can access with <code>.name</code> and <code>.dorm</code> later on.
+</p>
+
+<p>
+We can even open and save files with a snippet of code like:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #6434A3;">FILE</span> *<span style="color: #BA36A5;">file</span> = fopen<span style="color: #707183;">(</span><span style="color: #008000;">"students.csv"</span>, <span style="color: #008000;">"w"</span><span style="color: #707183;">)</span>;
+<span style="color: #0000FF;">if</span> <span style="color: #707183;">(</span>file<span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 0; i &lt; enrollment; i++<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        fprintf<span style="color: #909183;">(</span>file, <span style="color: #008000;">"%s,%s\n"</span>, students<span style="color: #709870;">[</span>i<span style="color: #709870;">]</span>.name, students<span style="color: #709870;">[</span>i<span style="color: #709870;">]</span>.dorm<span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+    fclose<span style="color: #7388D6;">(</span>file<span style="color: #7388D6;">)</span>;
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+
+<p>
+This is just a sneak preview of what we'll learn to use in the next problem set!
+</p>
+</div>
+</div>
+
+<div id="outline-container-orga582bca" class="outline-2">
+<h2 id="orga582bca"><span class="section-number-2">5</span> Enhance?</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Now, if we try to zoom in on an image, we'll eventually see the pixels that it's
+made of. But since images are represented as a finite number of bytes, we can't
+possibly see details that aren't already captured.
+</p>
+
+<p>
+Example: <a href="https://www.youtube.com/watch?v=i3gv2zOmJiA">https://www.youtube.com/watch?v=i3gv2zOmJiA</a>
+</p>
+
+<p>
+Images can be represented as a bitmap, or map of bits:
+</p>
+
+
+<div class="figure">
+<p><img src="figures/bitmap_2019-02-18_10-06-22.png" alt="bitmap_2019-02-18_10-06-22.png" />
+</p>
+</div>
+
+<p>
+Each <code>1</code> maps to a white pixel, and a <code>0</code> to a black pixel. An image with color
+will use more than one bit per pixel.
+</p>
+
+<p>
+And an image file will also include special data values, at the beginning of the
+file, so that programs can open them correctly. In the problem set, we'll learn
+about one such image file format, <code>.bmp</code>, for bitmaps. And we'll learn to tweak
+images digitally, resizing or filtering them as we'd like.
+</p>
+
+<p>
+More realistically: <a href="https://www.youtube.com/watch?v=17MctJPzR8w">https://www.youtube.com/watch?v=17MctJPzR8w</a>
+</p>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Gonzalo G. Peraza Mues</p>
+<p class="date">Created: 2019-02-18 lun 10:09</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
