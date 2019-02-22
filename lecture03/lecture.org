@@ -710,3 +710,12 @@ about one such image file format, ~.bmp~, for bitmaps. And we'll learn to tweak
 images digitally, resizing or filtering them as we'd like.
 
 More realistically: [[https://www.youtube.com/watch?v=17MctJPzR8w]]
+* Video Lectures
+Follow the links for a more detailed discussion of the topics covered:
+
+- [[https://www.youtube.com/watch?v=8VAhORT0ZW8][Pointers]]
+- [[https://www.youtube.com/watch?v=xa4ugmMDhiE][Dynamics Memory Allocation]]
+- [[https://www.youtube.com/watch?v=aCPkszeKRa4][Call Stacks]]
+- [[https://www.youtube.com/watch?v=8okwMK6htKE][Hexadecimal]]
+- [[https://www.youtube.com/watch?v=-BNy3eEBGt0][File Pointers]]
+- [[https://www.youtube.com/watch?v=nrXIMgInokU][Recursion]]
