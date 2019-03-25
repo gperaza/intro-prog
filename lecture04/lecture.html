@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-03-25 lun 11:14 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Class notes: Data Structures</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Gonzalo G. Peraza Mues" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="https://fniessen.github.io/org-html-themes/styles/readtheorg/css/readtheorg.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/lib/js/jquery.stickytableheaders.min.js"></script>
+<script type="text/javascript" src="https://fniessen.github.io/org-html-themes/styles/readtheorg/js/readtheorg.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Class notes: Data Structures</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#org3d0c5f1">1. Linked Lists</a></li>
+<li><a href="#orgcff57c2">2. Hash table</a></li>
+<li><a href="#org79a41e3">3. Tree</a></li>
+<li><a href="#org0363c97">4. Trie</a></li>
+<li><a href="#orgddc6dfe">5. Videos</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org3d0c5f1" class="outline-2">
+<h2 id="org3d0c5f1"><span class="section-number-2">1</span> Linked Lists</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+So far, arrays had to be a fixed size at the time of initialization. If we
+wanted to add to our array, we would have to initialize a bigger array, and copy
+the values from the original array. But the running time of resizing an array is
+now \(O(n)\), where \(n\) is the size of the original array.
+</p>
+
+<p>
+We can use a function called <code>realloc</code>, which reallocates memory. We can pass in
+the address of our memory and the new amount we want, and our operating system
+will return a new address, where we have that much contiguous memory. It will
+also copy the array for us to the new location. But this operation will cost a
+linear amount of time, too, depending on how big our array is.
+</p>
+
+<p>
+We can do the opposite, and ask for just enough memory for one element, like one
+integer, at a time. But they might be stored anywhere in the heap, so we need a
+way to link each element to the next, via a stored pointer.
+</p>
+
+<p>
+With this data structure, called a linked list, we lose the ability to randomly
+access elements. For example, we can no longer access the 5th element of the
+list by calculating where it is, in constant time. (Since we know arrays store
+elements back-to-back, we can add 1, or 4, or the size of our element, to
+calculate addresses.) Instead, we have to follow each element, one at a time.
+</p>
+
+<p>
+And we create a linked list by allocating, for each element, enough memory for
+both the value, and a pointer to the next element. We'll call these nodes:
+</p>
+
+
+<div class="figure">
+<p><img src="linked_list.png" alt="linked_list.png" />
+</p>
+</div>
+
+<p>
+We have three nodes at various addresses in memory, <code>100</code>, <code>150</code>, and
+<code>475</code>. Each node has the value we want to store, and also a pointer to the next
+node. The final node has a pointer of <code>NULL</code>, indicating the end of our linked
+list.
+</p>
+
+<p>
+In code, we might create our own struct called <code>node</code>, with an <code>int</code> and a
+pointer to the next <code>node</code> called <code>next</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #0000FF;">typedef</span> <span style="color: #0000FF;">struct</span> <span style="color: #6434A3;">node</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">n</span>;
+    <span style="color: #0000FF;">struct</span> <span style="color: #6434A3;">node</span> *<span style="color: #BA36A5;">next</span>;
+<span style="color: #707183;">}</span>
+<span style="color: #6434A3;">node</span>;
+</pre>
+</div>
+
+
+<p>
+We start this struct with <code>typedef struct node</code> so that we can refer to a <code>node</code>
+inside our struct.
+</p>
+
+<p>
+The running time of inserting a node into a <b>sorted</b> list, now, is \(O(n)\), since
+we have to follow each node to check their values. There's more logic and
+running time, but we don't need to decide on a fixed size for our list now. And
+if we were to insert nodes in unsorted order, the running time would be O(1),
+since we can just add it to the front of the list. We can also keep an
+additional pointer to the last node, calling it "last", or we can even have each
+node store two pointers, one to the previous node and one to the next node, so
+we can move forwards and backwards.
+</p>
+
+<p>
+Let's see how we might do this in code. First, we can store a fixed number of
+integers in an array:
+</p>
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt for number of numbers</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">capacity</span>;
+    <span style="color: #0000FF;">do</span>
+    <span style="color: #7388D6;">{</span>
+        capacity = get_int<span style="color: #909183;">(</span><span style="color: #008000;">"Capacity: "</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+    <span style="color: #0000FF;">while</span> <span style="color: #7388D6;">(</span>capacity &lt; 1<span style="color: #7388D6;">)</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Memory for numbers</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">numbers</span><span style="color: #7388D6;">[</span>capacity<span style="color: #7388D6;">]</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt for numbers</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">size</span> = 0;
+    <span style="color: #0000FF;">while</span> <span style="color: #7388D6;">(</span>size &lt; capacity<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt for number</span>
+        <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">number</span> = get_int<span style="color: #909183;">(</span><span style="color: #008000;">"Number: "</span><span style="color: #909183;">)</span>;
+
+        <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Add to list</span>
+        numbers<span style="color: #909183;">[</span>size<span style="color: #909183;">]</span> = number;
+        size++;
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Print numbers</span>
+    <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 0; i &lt; size; i++<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"%i\n"</span>, numbers<span style="color: #709870;">[</span>i<span style="color: #709870;">]</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+We get a <code>capacity</code> from the user, and create an array of size <code>capacity</code>. Then,
+we keep adding numbers to the array, until we reach the capacity. Then, we print
+each number in the array. But our program is limited to a capacity we choose
+initially.
+</p>
+
+<p>
+We can size an array dynamically:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Memory for numbers</span>
+    <span style="color: #6434A3;">int</span> *<span style="color: #BA36A5;">numbers</span> = <span style="color: #D0372D;">NULL</span>;
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">capacity</span> = 0;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt for numbers (until EOF)</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">size</span> = 0;
+    <span style="color: #0000FF;">while</span> <span style="color: #7388D6;">(</span><span style="color: #D0372D;">true</span><span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt for number</span>
+        <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">number</span> = get_int<span style="color: #909183;">(</span><span style="color: #008000;">"Number: "</span><span style="color: #909183;">)</span>;
+
+        <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Check for EOF</span>
+        <span style="color: #0000FF;">if</span> <span style="color: #909183;">(</span>number == INT_MAX<span style="color: #909183;">)</span>
+        <span style="color: #909183;">{</span>
+            <span style="color: #0000FF;">break</span>;
+        <span style="color: #909183;">}</span>
+
+        <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Check whether enough space for number</span>
+        <span style="color: #0000FF;">if</span> <span style="color: #909183;">(</span>size == capacity<span style="color: #909183;">)</span>
+        <span style="color: #909183;">{</span>
+            <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Allocate space for number</span>
+            <span style="color: #6434A3;">int</span> *<span style="color: #BA36A5;">tmp</span> = realloc<span style="color: #709870;">(</span>numbers, <span style="color: #0000FF;">sizeof</span><span style="color: #907373;">(</span><span style="color: #6434A3;">int</span><span style="color: #907373;">)</span> * <span style="color: #907373;">(</span>size + 1<span style="color: #907373;">)</span><span style="color: #709870;">)</span>;
+            <span style="color: #0000FF;">if</span> <span style="color: #709870;">(</span>!tmp<span style="color: #709870;">)</span>
+            <span style="color: #709870;">{</span>
+                <span style="color: #0000FF;">if</span> <span style="color: #907373;">(</span>numbers<span style="color: #907373;">)</span>
+                <span style="color: #907373;">{</span>
+                    free<span style="color: #6276BA;">(</span>numbers<span style="color: #6276BA;">)</span>;
+                <span style="color: #907373;">}</span>
+                <span style="color: #0000FF;">return</span> 1;
+            <span style="color: #709870;">}</span>
+            numbers = tmp;
+            capacity++;
+        <span style="color: #909183;">}</span>
+
+        <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Add number to list</span>
+        numbers<span style="color: #909183;">[</span>size<span style="color: #909183;">]</span> = number;
+        size++;
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Print numbers</span>
+    printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"\n"</span><span style="color: #7388D6;">)</span>;
+    <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">i</span> = 0; i &lt; size; i++<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        printf<span style="color: #909183;">(</span><span style="color: #008000;">"%i\n"</span>, numbers<span style="color: #709870;">[</span>i<span style="color: #709870;">]</span><span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Free memory</span>
+    <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>numbers<span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        free<span style="color: #909183;">(</span>numbers<span style="color: #909183;">)</span>;
+    <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+We get one number at a time. First, we initialize a pointer called numbers, but
+we don't initialize it yet. We track the capacity of our array, as well as the
+size of the array so far. Then, we get one number at a time from the
+user. get_int will return <code>INT_MAX</code> if we indicate <code>EOF</code>, or "end of file" as
+the end to our input (control + d in the terminal), so if that happens, we can
+<code>break</code> out of the loop. If we've reached our <code>capacity</code> for the <code>numbers</code>
+array, we use <code>realloc</code> to reallocate enough space for an additional integer in
+the array. We check that <code>realloc</code> returned a pointer that isn't null, and if
+not, <code>free</code> the existing <code>numbers</code> array if we have one, and <code>return 1</code>. If we
+do get enough space, then we can add the new number to the array. Finally, we
+can print each number in the array, and free the array.
+</p>
+
+<p>
+Now let's write the same program, using a linked list:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">cs50.h</span><span style="color: #707183;">&gt;</span>
+<span style="color: #808080;">#include</span> <span style="color: #707183;">&lt;</span><span style="color: #008000;">stdio.h</span><span style="color: #707183;">&gt;</span>
+
+<span style="color: #0000FF;">typedef</span> <span style="color: #0000FF;">struct</span> <span style="color: #6434A3;">node</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">number</span>;
+    <span style="color: #0000FF;">struct</span> <span style="color: #6434A3;">node</span> *<span style="color: #BA36A5;">next</span>;
+<span style="color: #707183;">}</span>
+<span style="color: #6434A3;">node</span>;
+
+<span style="color: #6434A3;">int</span> <span style="color: #006699;">main</span><span style="color: #707183;">(</span><span style="color: #6434A3;">void</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Memory for numbers</span>
+    <span style="color: #6434A3;">node</span> *<span style="color: #BA36A5;">numbers</span> = <span style="color: #D0372D;">NULL</span>;
+
+    <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt for numbers (until EOF)</span>
+    <span style="color: #0000FF;">while</span> <span style="color: #7388D6;">(</span><span style="color: #D0372D;">true</span><span style="color: #7388D6;">)</span>
+    <span style="color: #7388D6;">{</span>
+        <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Prompt for number</span>
+        <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">number</span> = get_int<span style="color: #909183;">(</span><span style="color: #008000;">"number: "</span><span style="color: #909183;">)</span>;
+
+        <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Check for EOF</span>
+        <span style="color: #0000FF;">if</span> <span style="color: #909183;">(</span>number == INT_MAX<span style="color: #909183;">)</span>
+        <span style="color: #909183;">{</span>
+            <span style="color: #0000FF;">break</span>;
+        <span style="color: #909183;">}</span>
+
+   <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Allocate space for number</span>
+     <span style="color: #6434A3;">node</span> *<span style="color: #BA36A5;">n</span> = malloc<span style="color: #909183;">(</span><span style="color: #0000FF;">sizeof</span><span style="color: #709870;">(</span>node<span style="color: #709870;">)</span><span style="color: #909183;">)</span>;
+     <span style="color: #0000FF;">if</span> <span style="color: #909183;">(</span>!n<span style="color: #909183;">)</span>
+     <span style="color: #909183;">{</span>
+         <span style="color: #0000FF;">return</span> 1;
+     <span style="color: #909183;">}</span>
+
+     <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Add number to list</span>
+     n-&gt;number = number;
+     n-&gt;next = <span style="color: #D0372D;">NULL</span>;
+     <span style="color: #0000FF;">if</span> <span style="color: #909183;">(</span>numbers<span style="color: #909183;">)</span>
+     <span style="color: #909183;">{</span>
+         <span style="color: #0000FF;">for</span> <span style="color: #709870;">(</span><span style="color: #6434A3;">node</span> *<span style="color: #BA36A5;">ptr</span> = numbers; ptr != <span style="color: #D0372D;">NULL</span>; ptr = ptr-&gt;next<span style="color: #709870;">)</span>
+         <span style="color: #709870;">{</span>
+             <span style="color: #0000FF;">if</span> <span style="color: #907373;">(</span>!ptr-&gt;next<span style="color: #907373;">)</span>
+             <span style="color: #907373;">{</span>
+                 ptr-&gt;next = n;
+                 <span style="color: #0000FF;">break</span>;
+             <span style="color: #907373;">}</span>
+         <span style="color: #709870;">}</span>
+     <span style="color: #909183;">}</span>
+     <span style="color: #0000FF;">else</span>
+     <span style="color: #909183;">{</span>
+         numbers = n;
+     <span style="color: #909183;">}</span>
+ <span style="color: #7388D6;">}</span>
+
+  <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Print numbers</span>
+  printf<span style="color: #7388D6;">(</span><span style="color: #008000;">"\n"</span><span style="color: #7388D6;">)</span>;
+  <span style="color: #0000FF;">for</span> <span style="color: #7388D6;">(</span><span style="color: #6434A3;">node</span> *<span style="color: #BA36A5;">ptr</span> = numbers; ptr != <span style="color: #D0372D;">NULL</span>; ptr = ptr-&gt;next<span style="color: #7388D6;">)</span>
+  <span style="color: #7388D6;">{</span>
+      printf<span style="color: #909183;">(</span><span style="color: #008000;">"%i\n"</span>, ptr-&gt;number<span style="color: #909183;">)</span>;
+  <span style="color: #7388D6;">}</span>
+
+  <span style="color: #8D8D84;">// </span><span style="color: #8D8D84; font-style: italic;">Free memory</span>
+  <span style="color: #6434A3;">node</span> *<span style="color: #BA36A5;">ptr</span> = numbers;
+  <span style="color: #0000FF;">while</span> <span style="color: #7388D6;">(</span>ptr != <span style="color: #D0372D;">NULL</span><span style="color: #7388D6;">)</span>
+  <span style="color: #7388D6;">{</span>
+      <span style="color: #6434A3;">node</span> *<span style="color: #BA36A5;">next</span> = ptr-&gt;next;
+      free<span style="color: #909183;">(</span>ptr<span style="color: #909183;">)</span>;
+      ptr = next;
+  <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+
+<p>
+The beginning of our program is essentially the same, though we define <code>node</code> at
+the top of this program.
+</p>
+
+<p>
+Next, we allocate enough memory for a new node and point to it with a pointer
+<code>n</code>. If <code>n</code> was null after we called <code>malloc</code>, then we exit with an error. With
+the <code>-&gt;</code> syntax, we can follow a pointer to get a variable in a struct, so we
+store the new number into the node <code>n</code> points to, along with <code>NULL</code> for the
+<code>next</code> pointer. (If <code>n</code> was a node and not a pointer, we would use the
+<code>n.number</code> syntax.)
+</p>
+
+<p>
+Then, if <code>numbers</code> is a pointer, we create a temporary pointer <code>ptr</code> to follow
+our linked list. We start with <code>ptr = numbers</code>. Inside our loop, if <code>ptr</code>
+doesn't have a <code>next</code> pointer (i.e. it's the last node in our linked list), we
+set the <code>next</code> pointer to <code>n</code> and break. Otherwise, our loop continues, and our
+temporary pointer <code>ptr</code> becomes <code>ptr-&gt;next,</code> i.e. we look at the next node.
+</p>
+
+<p>
+If we didn't have an existing <code>numbers</code> pointer, we can just set it to <code>n</code>, or
+the start of our new list.
+</p>
+
+<p>
+Finally, we print the numbers by following the linked list in the same way, and
+we also free each node as we follow its <code>next</code> pointer.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgcff57c2" class="outline-2">
+<h2 id="orgcff57c2"><span class="section-number-2">2</span> Hash table</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+If we had an unsorted array or linked list storing names, we would have to look
+through each value, one at a time.
+</p>
+
+<p>
+We, as humans, might make smaller lists where each person whose name starts with
+"A" will be in one list, "B" in another, and so on. We can represent this
+concept with a <i>hash table</i>, where each value to be stored is <i>hashed</i> by a
+<i>hash function</i>. The resulting <i>hash</i> might be a number, and in this case might
+be <code>0</code> for a string that starts with <code>A</code>, <code>1</code> for a string that starts with <code>B</code>, and
+so on, but the important part is that we can use that number to index into some
+array. The array, in turn, will have a linked list for each letter of the
+alphabet (or more generally, a linked list for each <code>bucket</code>), and so this data
+structure is called a hash table.
+</p>
+
+<p>
+Now, each linked list (in our example of strings) will only be, on average,
+1/26th the size of a list with all the strings together. In the worst case, all
+the strings will end up in the same bucket (if they happen to start with the
+same letter), and we would have \(O(n)\) running time, like an unsorted array. We
+can also use a different hash function, which might distribute our elements more
+evenly. But in the real world, our running time is likely to be much lower with
+a hash table. And we can even have more buckets in our hash table, so each list
+is an even smaller proportion.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org79a41e3" class="outline-2">
+<h2 id="org79a41e3"><span class="section-number-2">3</span> Tree</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+A tree is another data structure where each node points to two other nodes, one
+to the left (with a smaller value) and one to the right (with a larger value):
+</p>
+
+
+<div class="figure">
+<p><img src="tree.png" alt="tree.png" />
+</p>
+</div>
+
+<p>
+Now, we can easily do binary search, and since each node is pointing to another,
+we can also insert nodes into the tree without moving all of them around as we
+would have to in an array. Recursively searching this tree would look something
+like:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-C"><span style="color: #0000FF;">typedef</span> <span style="color: #0000FF;">struct</span> <span style="color: #6434A3;">node</span>
+<span style="color: #707183;">{</span>
+  <span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">n</span>;
+  <span style="color: #0000FF;">struct</span> <span style="color: #6434A3;">node</span> *<span style="color: #BA36A5;">left</span>;
+  <span style="color: #0000FF;">struct</span> <span style="color: #6434A3;">node</span> *<span style="color: #BA36A5;">right</span>;
+<span style="color: #707183;">}</span> <span style="color: #6434A3;">node</span>;
+...
+bool search<span style="color: #707183;">(</span><span style="color: #6434A3;">int</span> <span style="color: #BA36A5;">n</span>, <span style="color: #6434A3;">node</span> *<span style="color: #BA36A5;">tree</span><span style="color: #707183;">)</span>
+<span style="color: #707183;">{</span>
+  <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>tree == <span style="color: #D0372D;">NULL</span><span style="color: #7388D6;">)</span>
+  <span style="color: #7388D6;">{</span>
+      <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">false</span>;
+  <span style="color: #7388D6;">}</span>
+  <span style="color: #0000FF;">else</span> <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>n &lt; tree-&gt;n<span style="color: #7388D6;">)</span>
+  <span style="color: #7388D6;">{</span>
+      <span style="color: #0000FF;">return</span> search<span style="color: #909183;">(</span>n, tree-&gt;left<span style="color: #909183;">)</span>;
+  <span style="color: #7388D6;">}</span>
+  <span style="color: #0000FF;">else</span> <span style="color: #0000FF;">if</span> <span style="color: #7388D6;">(</span>n &gt; tree-&gt;n<span style="color: #7388D6;">)</span>
+  <span style="color: #7388D6;">{</span>
+      <span style="color: #0000FF;">return</span> search<span style="color: #909183;">(</span>n, tree-&gt;right<span style="color: #909183;">)</span>;
+  <span style="color: #7388D6;">}</span>
+  <span style="color: #0000FF;">else</span> <span style="color: #7388D6;">{</span>
+      <span style="color: #0000FF;">return</span> <span style="color: #D0372D;">true</span>;
+  <span style="color: #7388D6;">}</span>
+<span style="color: #707183;">}</span>
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org0363c97" class="outline-2">
+<h2 id="org0363c97"><span class="section-number-2">4</span> Trie</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+We can use another data structure called a trie (pronounced like "try", and is
+short for "retrieval"):
+</p>
+
+
+<div class="figure">
+<p><img src="trie.png" alt="trie.png" />
+</p>
+</div>
+
+<p>
+Imagine we want to store a dictionary of words efficiently, and be able to
+access each one in constant time. A trie is like a tree, but each node is an
+array. Each array will have each letter, A-Z, stored. For each word, the first
+letter will point to an array, where the next valid letter will point to another
+array, and so on, until we reach something indicating the end of a valid
+word. If our word isn't in the trie, then one of the arrays won't have a pointer
+or terminating character for our word.
+</p>
+</div>
+</div>
+<div id="outline-container-orgddc6dfe" class="outline-2">
+<h2 id="orgddc6dfe"><span class="section-number-2">5</span> Videos</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+Please watch the following videos:
+</p>
+<ul class="org-ul">
+<li><a href="https://www.youtube.com/watch?v=crxfzK3Oc9M">https://www.youtube.com/watch?v=crxfzK3Oc9M</a></li>
+<li><a href="https://www.youtube.com/watch?v=Ryz5KK5G8Sc">https://www.youtube.com/watch?v=Ryz5KK5G8Sc</a></li>
+<li><a href="https://www.youtube.com/watch?v=xdkSNe43iNM">https://www.youtube.com/watch?v=xdkSNe43iNM</a></li>
+<li><a href="https://www.youtube.com/watch?v=a97eCq6EN88">https://www.youtube.com/watch?v=a97eCq6EN88</a></li>
+<li><a href="https://www.youtube.com/watch?v=MTxh0kx1Vvs">https://www.youtube.com/watch?v=MTxh0kx1Vvs</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Gonzalo G. Peraza Mues</p>
+<p class="date">Created: 2019-03-25 lun 11:14</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
